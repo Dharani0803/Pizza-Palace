@@ -8,7 +8,7 @@ function AdminDashboard() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch("http://pizza-palace-3.onrender.com/api/orders")
+    fetch("https://pizza-palace-3.onrender.com/api/orders")
       .then((res) => res.json())
       .then((data) => setOrders(data));
   }, []);
