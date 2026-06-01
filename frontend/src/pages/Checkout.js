@@ -23,66 +23,81 @@ function Checkout() {
 };
 
   // ---------------- RAZORPAY ----------------
-  const handlePayment = async () => {
-    if (!paymentMethod) {
-      alert("Please select a payment method");
-      return;
-    }
-
-    if (paymentMethod === "COD") {
-      handleCOD();
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        "https://pizza-palace-3.onrender.com/api/payment/create-order",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ amount: finalTotal }),
-        }
-      );
-
-      const order = await response.json();
-
-      const options = {
-        key: "rzp_test_SvUIwncC0p1kCW",
-        amount: order.amount,
-        currency: order.currency,
-        name: "Pizza Palace",
-        description: "Pizza Order",
-        image: "https://cdn-icons-png.flaticon.com/512/3595/3595455.png",
-        order_id: order.id,
-
-        prefill: {
-          name: "Demo User",
-          email: "demo@razorpay.com",
-          contact: "9876543210",
-        },
-
-        handler: async function () {
-  const success = await placeOrderToBackend();
-
-  if (success) {
-    alert("Payment Successful ✅");
-
-    // IMPORTANT FIX
-    setCartItems([]);
-
-    window.location.href = "/success";
+const handlePayment = async () => {
+  if (!paymentMethod) {
+    alert("Please select a payment method");
+    return;
   }
-},
-        theme: { color: "#E31837" },
-      };
 
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
-    } catch (err) {
-      console.log(err);
-      alert("Payment Failed");
-    }
-  };
+  if (paymentMethod === "COD") {
+    handleCOD();
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://pizza-palace-3.onrender.com/api/payment/create-order",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+
+        // IMPORTANT
+        body: JSON.stringify({
+          amount: finalTotal * 100,
+        }),
+      }
+    );
+
+    const order = await response.json();
+
+    const options = {
+      key: "rzp_test_SvUIwncC0p1kCW",
+      amount: order.amount,
+      currency: order.currency,
+      name: "Pizza Palace",
+      description: "Pizza Order",
+      image:
+        "https://cdn-icons-png.flaticon.com/512/3595/3595455.png",
+      order_id: order.id,
+
+      prefill: {
+        name: "Demo User",
+        email: "demo@razorpay.com",
+        contact: "9876543210",
+      },
+
+      handler: async function () {
+
+        // SAVE ORDER
+        const success = await placeOrderToBackend();
+
+        if (success) {
+
+          // ALERT
+          alert("Payment Successful ✅");
+
+          // CLEAR CART
+          setCartItems([]);
+
+          // SUCCESS PAGE
+          window.location.href = "/success";
+        }
+      },
+
+      theme: {
+        color: "#E31837",
+      },
+    };
+
+    const razorpay = new window.Razorpay(options);
+
+    razorpay.open();
+
+  } catch (err) {
+    console.log(err);
+    alert("Payment Failed");
+  }
+};
 
   const subtotal = cartItems.reduce(
   (total, item) => total + item.price * item.quantity,
@@ -122,7 +137,7 @@ const orderData = {
   userEmail: user?.email   // ✅ ADD THIS LINE
 };
 
-    const res = await fetch("https://pizza-palace-3.onrender.com/api/orders", {
+    const res = await fetch("https://localhost:5000/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderData),
