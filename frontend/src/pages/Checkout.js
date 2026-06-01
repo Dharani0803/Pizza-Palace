@@ -10,16 +10,19 @@ function Checkout() {
 
   // ---------------- COD ----------------
   const handleCOD = async () => {
+
   const success = await placeOrderToBackend();
 
   if (success) {
-    alert("Order placed successfully 🚚 (Cash on Delivery)");
 
-    // IMPORTANT FIX
-    setCartItems([]);
+  localStorage.removeItem("cart");
 
-    navigate("/success");
-  }
+  setCartItems([]);
+
+  alert("Order placed successfully 🚚");
+
+  navigate("/success");
+}
 };
 
   // ---------------- RAZORPAY ----------------
@@ -72,11 +75,13 @@ const handlePayment = async () => {
 
   if (success) {
 
-    alert("Payment Successful ✅");
+    localStorage.removeItem("cart");
 
     setCartItems([]);
 
-    window.location.href = "/success";
+    alert("Payment Successful ✅");
+
+    navigate("/success");
   }
 },
 
@@ -123,31 +128,39 @@ const [showTaxes, setShowTaxes] =
 
 const placeOrderToBackend = async () => {
   try {
+
     const user = JSON.parse(localStorage.getItem("user"));
 
-const orderData = {
-  items: cartItems,
-  totalAmount: finalTotal,
-  status: "Pending",
-  paymentMethod, 
-  userEmail: user?.email,// ✅ ADD THIS LINE
-};
+    const orderData = {
+      items: cartItems,
+      totalAmount: finalTotal,
+      status: "Pending",
+      paymentMethod,
+      email: user?.email,
+    };
 
-    const res = await fetch("https://pizza-palace-3.onrender.com/api/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(orderData),
-    });
+    const res = await fetch(
+      "https://pizza-palace-3.onrender.com/api/orders",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      }
+    );
 
-    await res.json();
+    if (!res.ok) {
+      throw new Error("Order failed");
+    }
 
     return true;
+
   } catch (err) {
-    console.log("Order save failed", err);
+    console.log(err);
     return false;
   }
 };
-
   
 
   return (
