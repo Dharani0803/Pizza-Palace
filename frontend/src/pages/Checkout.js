@@ -21,7 +21,7 @@ function Checkout() {
 
   alert("Order placed successfully 🚚");
 
-  navigate("/success");
+  window.location.href = "/success";
 }
 };
 
@@ -38,6 +38,7 @@ const handlePayment = async () => {
   }
 
   try {
+    console.log("ORDER START");
     const response = await fetch(
       "https://pizza-palace-3.onrender.com/api/payment/create-order",
       {
@@ -50,6 +51,7 @@ const handlePayment = async () => {
         }),
       }
     );
+    console.log("ORDER RESPONSE:", response.status);
 
     const order = await response.json();
 
@@ -74,6 +76,7 @@ const handlePayment = async () => {
   const success = await placeOrderToBackend();
 
   if (success) {
+    console.log("ORDER SUCCESS");
 
     localStorage.removeItem("cart");
 
@@ -81,7 +84,7 @@ const handlePayment = async () => {
 
     alert("Payment Successful ✅");
 
-    navigate("/success");
+    window.location.href = "/success";
   }
 },
 
@@ -132,12 +135,12 @@ const placeOrderToBackend = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
     const orderData = {
-      items: cartItems,
-      totalAmount: finalTotal,
-      status: "Pending",
-      paymentMethod,
-      email: user?.email,
-    };
+  items: cartItems,
+  totalAmount: finalTotal,
+  status: "Pending",
+  paymentMethod,
+  userEmail: user?.email,
+};
 
     const res = await fetch(
       "https://pizza-palace-3.onrender.com/api/orders",
