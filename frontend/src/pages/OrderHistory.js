@@ -6,7 +6,11 @@ function OrderHistory() {
   const [orders, setOrders] = useState([]);
 
 useEffect(() => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const storedUser = localStorage.getItem("user");
+
+  if (!storedUser) return;
+
+  const user = JSON.parse(storedUser);
 
   fetch(`https://pizza-palace-3.onrender.com/api/orders?email=${user.email}`)
     .then((res) => res.json())
