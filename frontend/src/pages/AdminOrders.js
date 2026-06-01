@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AdminOrders() {
+  const navigate = useNavigate();
 
   const [orders, setOrders] = useState([]);
   useEffect(() => {
@@ -11,7 +13,7 @@ function AdminOrders() {
 
  const updateStatus = async (id, value) => {
   try {
-    await fetch(`https://pizza-palace-3.onrender.com/api/orders/${id}`, {
+    await fetch(`https://pizza-palace-3.onrender.com/orders/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: value }),
@@ -31,14 +33,19 @@ function AdminOrders() {
     <div className="bg-[#F4F4F6] min-h-screen p-6">
 
       <div className="mb-6">
+        <div className="flex gap-3">
+          <div><i
+onClick={() => navigate(-1)}
+className="fa-solid fa-arrow-left cursor-pointer"
+></i></div>
 
-        <p className="text-3xl font-bold">
+        <div><p className="text-2xl font-bold">
           Orders Management
         </p>
 
         <p className="text-gray-500 mt-1">
           Manage all customer orders
-        </p>
+        </p></div></div>
 
       </div>
 
@@ -103,7 +110,7 @@ function AdminOrders() {
                 <td className="p-4 text-sm space-y-1">
   {order.items?.map((item, index) => (
     <p key={index}>
-      🍕 {item.name} × {item.quantity}
+      {item.name} × {item.quantity}
     </p>
   ))}
 </td>

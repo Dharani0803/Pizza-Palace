@@ -60,7 +60,7 @@ function Menu(){
   return(
     <div>
       <nav className="flex justify-between items-center m-3">
-        <div className="flex  items-center gap-5"><i className="fa-solid fa-arrow-left"></i>
+        <div className="flex items-center gap-5 cursor-pointer" onClick={() => navigate(-1)}><i className="fa-solid fa-arrow-left"></i>
         <p className="text-xl font-semibold">Back to Home</p></div>
         <div><i onClick={() => setShowSearch(!showSearch)} className="fa-solid fa-magnifying-glass bg-[#FFFFFF] rounded-full border border-gray-400 p-2 cursor-pointer"></i>
         </div>

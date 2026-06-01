@@ -21,7 +21,7 @@ function Login() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   if (user?.role === "admin") {
-    navigate("/admin", { replace: true });
+    navigate("/", { replace: true });
   } else if (user) {
     navigate("/", { replace: true });
   }

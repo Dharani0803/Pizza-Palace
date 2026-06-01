@@ -5,22 +5,24 @@ function OrderHistory() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
 
-  useEffect(() => {
-    fetch("https://pizza-palace-3.onrender.com/api/orders")
-      .then((res) => res.json())
-      .then((data) => setOrders(data))
-      .catch((err) => console.log(err));
-  }, []);
+useEffect(() => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  fetch(`https://pizza-palace-3.onrender.com/api/orders?email=${user.email}`)
+    .then((res) => res.json())
+    .then((data) => setOrders(data))
+    .catch((err) => console.log(err));
+}, []);
 
   return (
     <div className="bg-[#EEEEF1] min-h-screen">
 
       <nav className="bg-white px-5 py-4 flex items-center gap-3 shadow-sm">
         <button onClick={() => navigate(-1)}>
-          <i className="fa-solid fa-arrow-left text-lg"></i>
+          <i className="fa-solid fa-arrow-left"></i>
         </button>
 
-        <p className="text-xl font-bold">My Orders</p>
+        <p className="text-xl font-semibold">My Orders</p>
       </nav>
 
       {orders.length === 0 ? (

@@ -48,7 +48,7 @@ const [city, setCity] = useState("");
     return(
         <div>
             <nav className="flex justify-between items-center m-5">
-                <div className="flex  items-center gap-3"><i class="fa-solid fa-arrow-left"></i>
+                <div className="flex  items-center gap-3" onClick={() => navigate(-1)}><i class="fa-solid fa-arrow-left"></i>
                 <p className="text-xl font-semibold">Cart</p></div>
                 <div className={`flex gap-1 items-center px-2 py-1 rounded-md ${
   appliedOffer ? "bg-green-100 text-green-700" : "text-gray-700"
@@ -61,7 +61,7 @@ const [city, setCity] = useState("");
 </div>
             </nav>
 
-        <div className="bg-[#EEEEF1] px-40 py-5 ">
+        <div className="bg-[#EEEEF1] md:px-40 px-5 py-5 ">
             <div className="bg-white p-3 flex gap-5 items-center rounded-lg mb-5">
              <div
                 className="bg-[#FFFFFF] p-2 border border-gray-100 rounded-lg flex gap-1 items-center cursor-pointer">
@@ -78,9 +78,9 @@ const [city, setCity] = useState("");
              </div>
             </div>
 
-    <div className="flex gap-10">
+    <div className="flex flex-col md:flex-row md:gap-10 gap-5">
 
-        <div className="bg-white p-3 rounded-lg w-[60%]">
+        <div className="bg-white p-3 rounded-lg md:w-[60%]">
     {cartItems.map((item) => (
         <div key={item._id} className="flex justify-between border-b border-dashed pb-5 mb-5">
         <div>

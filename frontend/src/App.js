@@ -7,6 +7,7 @@ import Checkout from "./pages/Checkout";
 import Success from "./pages/Success";
 import Profile from "./pages/Profile";
 import OrderHistory from "./pages/OrderHistory";
+import Offers from "./pages/Offers";
 
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminPizzas from "./pages/AdminPizzas";
@@ -37,6 +38,7 @@ function App() {
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/orders" element={<ProtectedRoute><OrderHistory /></ProtectedRoute>} />
         <Route path="/pizza/:id" element={<PizzaDetails />} />
+        <Route path="/offers" element={<Offers />} />
 
         {/* ADMIN ONLY */}
         <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />

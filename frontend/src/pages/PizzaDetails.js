@@ -19,19 +19,19 @@ function PizzaDetails() {
       {/* BACK */}
       <div className="p-4 flex items-center gap-3">
         <button onClick={() => navigate(-1)}>
-          <i className="fa-solid fa-arrow-left text-xl"></i>
+          <i className="fa-solid fa-arrow-left"></i>
         </button>
-        <p className="font-bold">Pizza Details</p>
+        <p className="font-semibold">Pizza Details</p>
       </div>
 
       {/* IMAGE */}
       <img
         src={pizza.imageUrl} alt="Pizza item"
-        className="w-full h-[300px] object-cover"
+        className="w-full h-[370px] object-cover"
       />
 
       {/* CONTENT */}
-      <div className="p-5">
+      <div className="p-3">
 
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">{pizza.name}</h1>
@@ -43,10 +43,10 @@ function PizzaDetails() {
         </p>
 
         {/* ADD BUTTON */}
-        <div className="mt-6">
+        <div className="mt-5">
 
           {cartItem ? (
-            <div className="flex items-center gap-4 border px-4 py-2 rounded-md w-fit">
+            <div className="flex justify-between items-center gap-4 border py-2 rounded-md w-full">
 
               <button onClick={() => decreaseQuantity(pizza._id)}>
                 -
@@ -62,7 +62,7 @@ function PizzaDetails() {
           ) : (
             <button
               onClick={() => addToCart(pizza)}
-              className="bg-[#E31837] text-white px-6 py-3 rounded-md"
+              className="bg-[#E31837] text-white py-2 w-full rounded-md"
             >
               Add +
             </button>

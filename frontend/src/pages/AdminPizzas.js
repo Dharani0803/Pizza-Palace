@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AdminPizzas() {
-
+  const navigate = useNavigate();
   const [pizzas, setPizzas] = useState([]);
 
   const [newPizza, setNewPizza] = useState({
@@ -51,16 +52,21 @@ function AdminPizzas() {
     <div className="bg-[#F4F4F6] min-h-screen p-6">
 
       <div className="flex justify-between items-center mb-6">
+        <div className="flex gap-3">
+          <div><i
+onClick={() => navigate(-1)}
+className="fa-solid fa-arrow-left cursor-pointer"
+></i></div>
 
         <div>
-          <p className="text-3xl font-bold">
+          <p className="text-2xl font-bold">
             Pizza Management
           </p>
 
           <p className="text-gray-500 mt-1">
             Manage pizzas from database
           </p>
-        </div>
+        </div></div>
 
       </div>
 

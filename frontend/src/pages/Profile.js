@@ -15,10 +15,10 @@ return (
 
 <i
 onClick={() => navigate(-1)}
-className="fa-solid fa-arrow-left text-lg cursor-pointer"
+className="fa-solid fa-arrow-left cursor-pointer"
 ></i>
 
-<h1 className="text-2xl font-bold">
+<h1 className="text-xl font-semibold">
 Edit Profile
 </h1>
 
@@ -36,9 +36,7 @@ Edit Profile
 
 </div>
 
-<button className="text-[#E31837] text-sm font-semibold mt-3">
-Change Photo
-</button>
+
 
 </div>
 

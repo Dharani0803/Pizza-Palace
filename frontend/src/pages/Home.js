@@ -30,9 +30,6 @@ const [city, setCity] = useState("");
   }, []);
 
 
-
- 
-
   const bestSellerNames = ["Margherita","Peppy Paneer","Indi Tandoori Paneer","Veggie Paradise","Pepper Barbecue Chicken","Classic","Golden Corn","Garlic Breadsticks","Veg Parcel","Cheese Volcano BBQ Chicken"];
   const bestsellers = pizzas.filter((pizza) =>bestSellerNames.includes(pizza.name));
   const cheeseVolcanoNames = ["Cheese Volcano Veg Paradise","Cheese Volcano BBQ Chicken","Cheese Volcano Farmhouse","Cheese Volcano Peppy Paneer","Cheese Volcano Chicken Delight","Cheese Volcano Double Chicken","Corn & Cheese Volcano","Cheese Volcano Blazing Chicken"];
@@ -63,12 +60,12 @@ const handleAddToCart = (item) => {
     <div>
     <nav className="flex justify-between items-center mt-2 mb-2">
     <div>
-      <img className="w-16 ml-7" src={Logo} alt="Logo"/>
+      <img className="w-16 md:ml-7 ml-3" src={Logo} alt="Logo"/>
     </div>
 
-    <div className="flex gap-10 items-center">
+    <div className="flex md:gap-10  gap-5 items-center">
 
-    <div onClick={() => setShowAddress(true)} className="flex gap-2 items-center cursor-pointer">
+    <div onClick={() => setShowAddress(true)} className="flex md:gap-2 gap-1 items-center cursor-pointer">
       <i className="fa-solid fa-location-dot text-red-700"></i>
       <p className="max-w-[180px] truncate">
   {address || "No Location"}
@@ -77,7 +74,7 @@ const handleAddToCart = (item) => {
       </div>
 
     <div className="relative">
-      <i onClick={() => setShowProfile(!showProfile)} className="fa-solid fa-circle-user text-gray-200 text-3xl mr-5 cursor-pointer"></i>
+      <i onClick={() => setShowProfile(!showProfile)} className="fa-solid fa-circle-user text-gray-200 text-3xl md:mr-5 mr-3 cursor-pointer"></i>
 
       {showProfile && (<div>
         <div
@@ -113,7 +110,7 @@ const handleAddToCart = (item) => {
     Edit Profile
   </button>
 
-  <button
+  <button onClick={() => navigate("/offers")}
     className="w-full text-left px-4 py-4 hover:bg-gray-100 text-sm"
   >
     Deals & Offers
@@ -195,12 +192,12 @@ const handleAddToCart = (item) => {
     </div></div>)}
 
     <div>
-      <img className="w-full" src={Banner} alt="Banner"></img>
+      <img className="w-full h-full" src={Banner} alt="Banner"></img>
       </div>
 
     <div className="m-5">
       <h1 className="text-xl font-bold">Offers for you</h1>
-        <div className=" mt-3 flex gap-10">
+        <div className="flex flex-col md:flex-row mt-3 md:gap-10 gap-3">
           <div className="flex gap-10">
             <div className="flex gap-40 items-center rounded-lg text-white p-3 bg-gradient-to-b from-[#0254B1] to-[#1879D2]">
             <div><div className="flex items-center gap-2"><i className="fa-solid fa-tags"></i>
@@ -511,11 +508,11 @@ return (
     </div>
     </div>)}
 
-    <div className="flex sticky bottom-0 z-10 justify-center gap-40 py-1 shadow-[0_-4px_10px_rgba(0,0,0,0.10)]">
+    <div className="flex sticky bottom-0 z-10 justify-center md:gap-40 gap-20 py-1 shadow-[0_-4px_10px_rgba(0,0,0,0.10)]">
       <div onClick={() => navigate("/menu")} className="text-center">
       <i class="fa-solid fa-bars-staggered text-gray-800"></i>
       <p className="text-sm text-gray-800">Menu</p></div>
-      <div className="text-center">
+      <div className="text-center" onClick={() => navigate("/offers")}>
         <i className="fa-solid fa-tags text-gray-800"></i>
         <p className="text-sm text-gray-800">Offers</p></div>
 

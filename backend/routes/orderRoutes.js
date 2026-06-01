@@ -13,13 +13,17 @@ router.post("/", async (req, res) => {
   }
 });
 
-// GET ALL ORDERS ✅ (THIS WAS MISSING)
 router.get("/", async (req, res) => {
   try {
-    const orders = await Order.find().sort({ createdAt: -1 });
+    const { email } = req.query;
+
+    const filter = email ? { userEmail: email } : {};
+
+    const orders = await Order.find(filter);
+
     res.json(orders);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ message: err.message });
   }
 });
 

@@ -32,11 +32,15 @@ function AdminDashboard() {
       {/* HEADER */}
       <div className="flex justify-between items-center mb-6">
 
-        <div>
-          <p className="text-3xl font-bold">Admin Dashboard</p>
+        <div className="flex gap-3">
+          <div><i
+onClick={() => navigate(-1)}
+className="fa-solid fa-arrow-left cursor-pointer"
+></i></div>
+          <div><p className="text-2xl font-bold">Admin Dashboard</p>
           <p className="text-gray-500">
             Orders, Revenue & Delivery Tracking
-          </p>
+          </p></div>
         </div>
 
         {/* QUICK ACCESS */}
@@ -44,7 +48,7 @@ function AdminDashboard() {
 
           <button
             onClick={() => setShowQuickAccess(!showQuickAccess)}
-            className="bg-[#E31837] text-white px-5 py-3 rounded-xl font-semibold"
+            className="bg-[#E31837] text-white px-4 py-2 rounded-md font-semibold"
           >
             Quick Access
           </button>
@@ -74,7 +78,7 @@ function AdminDashboard() {
       {/* ================= 1. TOTAL ORDERS ================= */}
       <div className="bg-white p-5 rounded-2xl shadow-sm mb-6">
 
-        <h2 className="text-xl font-bold mb-4">
+        <h2 className="font-bold mb-4">
           Total Orders ({orders.length})
         </h2>
 
@@ -86,7 +90,7 @@ function AdminDashboard() {
             {orders.map((order) => (
               <div
                 key={order._id}
-                className="border p-3 rounded-lg flex justify-between"
+                className="border p-3 rounded-lg flex justify-between items-center"
               >
                 <div>
                   <p className="font-semibold">
@@ -99,7 +103,7 @@ function AdminDashboard() {
                 </div>
 
                 <span
-                  className={`text-xs px-3 py-1 rounded-full font-semibold
+                  className={`text-xs p-3 rounded-md font-semibold
                     ${
                       order.status === "Delivered"
                         ? "bg-green-100 text-green-700"
@@ -119,7 +123,7 @@ function AdminDashboard() {
       {/* ================= 2. PENDING ORDERS ================= */}
       <div className="bg-white p-5 rounded-2xl shadow-sm mb-6">
 
-        <h2 className="text-xl font-bold mb-4">
+        <h2 className="font-bold mb-4">
           Pending Orders ({pendingOrders.length})
         </h2>
 
@@ -154,7 +158,7 @@ function AdminDashboard() {
       {/* ================= 3. REVENUE ================= */}
       <div className="bg-white p-5 rounded-2xl shadow-sm">
 
-        <h2 className="text-xl font-bold mb-4">
+        <h2 className="font-bold mb-4">
           Revenue (Delivered Orders)
         </h2>
 
@@ -166,7 +170,7 @@ function AdminDashboard() {
             {revenueOrders.map((order) => (
               <div
                 key={order._id}
-                className="border p-3 rounded-lg flex justify-between"
+                className="border p-3 rounded-lg flex justify-between items-center"
               >
                 <div>
                   <p className="font-semibold">
@@ -178,7 +182,7 @@ function AdminDashboard() {
                   </p>
                 </div>
 
-                <p className="font-bold text-green-600">
+                <p className="font-semibold">
                   ₹{order.totalAmount}
                 </p>
               </div>
@@ -191,7 +195,7 @@ function AdminDashboard() {
         <div className="mt-4 border-t pt-3 flex justify-between">
           <p className="font-bold">Total Revenue</p>
 
-          <p className="text-2xl font-bold text-green-600">
+          <p className="font-bold">
             ₹{totalRevenue}
           </p>
         </div>

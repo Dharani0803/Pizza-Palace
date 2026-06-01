@@ -1,7 +1,9 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 function Checkout() {
+  const navigate = useNavigate();
   const { cartItems, setCartItems, address} = useContext(CartContext);
 
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -110,17 +112,14 @@ const [showTaxes, setShowTaxes] =
 
 const placeOrderToBackend = async () => {
   try {
-    const orderData = {
-  id: "ORD" + Date.now(),
-  items: cartItems.map((item) => ({
-    name: item.name,
-    quantity: item.quantity,
-    price: item.price,
-  })),
+    const user = JSON.parse(localStorage.getItem("user"));
+
+const orderData = {
+  items: cartItems,
   totalAmount: finalTotal,
   status: "Pending",
-  paymentMethod: paymentMethod || "COD",
-  address
+  paymentMethod,
+  userEmail: user?.email   // ✅ ADD THIS LINE
 };
 
     const res = await fetch("https://pizza-palace-3.onrender.com/api/orders", {
@@ -142,16 +141,16 @@ const placeOrderToBackend = async () => {
 
   return (
     <div>
-        <nav className="flex px-3 py-5 items-center gap-3"><i class="fa-solid fa-arrow-left"></i>
+        <nav className="flex px-3 py-5 items-center gap-3" onClick={() => navigate(-1)}><i class="fa-solid fa-arrow-left"></i>
                 <p className="text-xl font-semibold">Checkout</p>
       </nav>
     <div className="min-h-screen bg-gray-100 pb-20">
 
       {/* PAGE CONTAINER */}
-      <div className="flex gap-5 px-6 py-5">
+      <div className="md:flex-row flex flex-col gap-5 px-6 py-5">
 
         {/* ================= LEFT SIDE (70%) ================= */}
-        <div className="w-[70%] bg-white">
+        <div className="md:w-[70%] bg-white">
 
           <h2 className=" font-semibold px-5 pt-3">
             Payment Options
@@ -196,7 +195,7 @@ const placeOrderToBackend = async () => {
         </div>
 
         {/* ================= RIGHT SIDE (30%) ================= */}
-        <div className="w-[30%]">
+        <div className="md:w-[30%]">
 
           {/* DELIVERY BOX */}
           <div className="bg-white p-4 rounded-lg">
