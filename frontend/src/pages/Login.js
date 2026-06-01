@@ -17,7 +17,7 @@ import { UserContext } from "../context/UserContext";
 
 function Login() {
     const navigate = useNavigate();
-  useEffect(() => {
+ useEffect(() => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   if (user?.role === "admin") {
@@ -25,7 +25,7 @@ function Login() {
   } else if (user) {
     navigate("/", { replace: true });
   }
-}, []);
+}, [navigate]);
 
 const buildUser = (firebaseUser) => {
   const isAdmin =

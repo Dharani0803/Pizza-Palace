@@ -26,7 +26,7 @@ function PizzaDetails() {
 
       {/* IMAGE */}
       <img
-        src={pizza.imageUrl} alt="Image"
+        src={pizza.imageUrl} alt="Pizza item"
         className="w-full h-[300px] object-cover"
       />
 

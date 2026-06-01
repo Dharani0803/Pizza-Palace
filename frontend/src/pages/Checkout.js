@@ -96,8 +96,6 @@ const totalTaxAndCharges =
 
 const discount = 30;
 
-const totalSavings = discount + 45;
-
 const finalTotal =
   subtotal +
   tax +

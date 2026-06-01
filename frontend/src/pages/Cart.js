@@ -195,7 +195,7 @@ const [city, setCity] = useState("");
         </div>
 
         <div className="border border-gray-100 px-5 py-2 rounded-md flex gap-2 items-center">
-            <img src={Delivery} alt="image" className="w-6"></img>
+            <img src={Delivery} alt="Delivery" className="w-6"></img>
             {totalSavings > 0 && (
             <p className="text-sm">₹{totalSavings} saved with FREE Delivery on your order</p>)}
         </div>
