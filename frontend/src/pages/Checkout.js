@@ -40,7 +40,7 @@ function Checkout() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ amount: finalTotal*100 }),
+          body: JSON.stringify({ amount: finalTotal }),
         }
       );
 
