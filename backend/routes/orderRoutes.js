@@ -16,6 +16,19 @@ router.get("/", async (req, res) => {
   }
 });
 
+// CREATE ORDER
+router.post("/", async (req, res) => {
+  try {
+    const newOrder = new Order(req.body);
+
+    const savedOrder = await newOrder.save();
+
+    res.status(201).json(savedOrder);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // UPDATE ORDER STATUS
 router.put("/:id", async (req, res) => {
   try {

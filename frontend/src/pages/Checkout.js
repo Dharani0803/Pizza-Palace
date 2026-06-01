@@ -68,21 +68,17 @@ const handlePayment = async () => {
 
       handler: async function () {
 
-        // SAVE ORDER
-        const success = await placeOrderToBackend();
+  const success = await placeOrderToBackend();
 
-        if (success) {
+  if (success) {
 
-          // ALERT
-          alert("Payment Successful ✅");
+    alert("Payment Successful ✅");
 
-          // CLEAR CART
-          setCartItems([]);
+    setCartItems([]);
 
-          // SUCCESS PAGE
-          navigate("/success");
-        }
-      },
+    window.location.href = "/success";
+  }
+},
 
       theme: {
         color: "#E31837",
