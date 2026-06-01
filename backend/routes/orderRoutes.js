@@ -6,21 +6,6 @@ router.get("/", async (req, res) => {
   try {
     const { email } = req.query;
 
-    const orders = email
-    ? await Order.find({ userEmail: email })
-    : await Order.find();
-
-
-    res.json(orders);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-router.get("/", async (req, res) => {
-  try {
-    const { email } = req.query;
-
     const filter = email ? { userEmail: email } : {};
 
     const orders = await Order.find(filter);

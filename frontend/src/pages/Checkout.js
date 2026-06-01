@@ -133,7 +133,8 @@ const orderData = {
   items: cartItems,
   totalAmount: finalTotal,
   status: "Pending",
-  paymentMethod, // ✅ ADD THIS LINE
+  paymentMethod, 
+  userEmail: user?.email,// ✅ ADD THIS LINE
 };
 
     const res = await fetch("https://pizza-palace-3.onrender.com/api/orders", {
