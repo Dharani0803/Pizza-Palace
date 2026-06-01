@@ -2,15 +2,9 @@ import { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 
 function Checkout() {
-  const { cartItems, setCartItems, address, deliveryTime } = useContext(CartContext);
-
-  const total = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
+  const { cartItems, setCartItems, address} = useContext(CartContext);
 
   const [paymentMethod, setPaymentMethod] = useState("");
-  const [deliveryType, setDeliveryType] = useState("Now");
 
   // ---------------- COD ----------------
   const handleCOD = async () => {
@@ -44,7 +38,7 @@ function Checkout() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ amount: total }),
+          body: JSON.stringify({ amount: finalTotal }),
         }
       );
 
@@ -119,21 +113,17 @@ const [showTaxes, setShowTaxes] =
 const placeOrderToBackend = async () => {
   try {
     const orderData = {
-      id: "ORD" + Date.now(),
-
-      items: cartItems.map((item) => ({
-        name: item.name,
-        quantity: item.quantity,
-        price: item.price,
-      })),
-
-      totalAmount: finalTotal,
-      status: "Pending",
-      paymentMethod: paymentMethod || "COD",
-      address,
-      deliveryTime,
-      createdAt: new Date(),
-    };
+  id: "ORD" + Date.now(),
+  items: cartItems.map((item) => ({
+    name: item.name,
+    quantity: item.quantity,
+    price: item.price,
+  })),
+  totalAmount: finalTotal,
+  status: "Pending",
+  paymentMethod: paymentMethod || "COD",
+  address
+};
 
     const res = await fetch("https://pizza-palace-3.onrender.com/api/orders", {
       method: "POST",
@@ -224,7 +214,7 @@ const placeOrderToBackend = async () => {
 
   <div className="flex items-center gap-2 pt-2">
     <i className="fa-regular fa-clock"></i>
-    <p>Deliver {deliveryTime}</p>
+    <p>Deliver Now</p>
   </div>
 </div>
           {/* ORDER SUMMARY */}

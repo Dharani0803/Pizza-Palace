@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Delivery from "../assets/Delivery.png"
@@ -20,11 +20,7 @@ function Cart(){
 
     const [showDiscount, setShowDiscount] = useState(false);
     const [showTaxes, setShowTaxes] = useState(false);
-    const [showDeliveryPopup, setShowDeliveryPopup] = useState(false);
-    const [deliveryType, setDeliveryType] = useState("Now");
-    const [selectedDate, setSelectedDate] = useState("Today");
-    const [selectedTime, setSelectedTime] = useState("7:00 PM");
-
+  
     const discount = appliedOffer === "GET30" ? 30 : 0;
     const deliverySaved = cartItems.length > 0 ? 45 : 0;
     const deliveryCharge = 0;
@@ -67,10 +63,10 @@ const [city, setCity] = useState("");
 
         <div className="bg-[#EEEEF1] px-40 py-5 ">
             <div className="bg-white p-3 flex gap-5 items-center rounded-lg mb-5">
-             <div onClick={() => setShowDeliveryPopup(true)}
+             <div
                 className="bg-[#FFFFFF] p-2 border border-gray-100 rounded-lg flex gap-1 items-center cursor-pointer">
              <div><p className="text-gray-500 text-xs font-semibold">DELIVER</p>
-             <p className="text-black font-bold text-lg">{deliveryType}</p></div>
+             <p className="text-black font-bold text-lg">Now</p></div>
              <div><i class="fa-solid fa-angle-down text-gray-500 text-xs"></i></div></div>
 
              <div>
@@ -310,47 +306,6 @@ const [city, setCity] = useState("");
   </div>
 )}
 
-
-    {showDeliveryPopup && (
-    <div className="fixed inset-0 bg-black/40 flex items-end justify-center z-50">
-    <div className="bg-white w-full rounded-t-3xl p-5">
-    <div className="flex justify-between items-center mb-5">
-        <h1 className="text-lg font-bold">Select Delivery Time</h1>
-        <button onClick={() => setShowDeliveryPopup(false)}>
-        <i className="fa-solid fa-xmark text-xl"></i>
-        </button>
-    </div>
-
-    <div className="flex gap-3 mb-5">
-      <button onClick={() => setDeliveryType("Now")} className={`px-5 py-2 rounded-full border font-semibold
-        ${ deliveryType === "Now" ? "bg-[#E31837] text-white border-[#E31837]" : "border-gray-300"}`}>
-        Now</button>
-      <button onClick={() => setDeliveryType("Later")} className={`px-5 py-2 rounded-full border font-semibold
-        ${ deliveryType === "Later" ? "bg-[#E31837] text-white border-[#E31837]" : "border-gray-300"}`}>
-        Later
-      </button>
-    </div>
-
-    {deliveryType === "Later" && (
-    <div>
-    <p className="font-semibold mb-3">Select Date</p>
-    <div className="flex gap-3 overflow-x-auto pb-3">
-
-    {["Today", "Tomorrow", "Jun 1", "Jun 2", "Jun 3", "Jun 4", "Jun 5", "Jun 6", "Jun 7", "Jun 8",].map((date, index) => (
-        <button key={index} onClick={() => setSelectedDate(date)} className={`px-4 py-2 rounded-lg border whitespace-nowrap
-        ${ selectedDate === date ? "bg-[#E31837] text-white border-[#E31837]" : "border-gray-300"}`}>
-        {date}</button>
-        ))}</div>
-
-    <p className="font-semibold mb-3 mt-5">Select Time</p>
-    <input type="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)}
-       className="border border-gray-300 rounded-lg px-4 py-2 w-full"/>
-    </div>)}
-
-    <button onClick={() => setShowDeliveryPopup(false)} className="bg-[#E31837] text-white w-full py-3 rounded-xl font-semibold mt-6">
-      Save</button>
-    </div>
-    </div>)}
     </div>
 
 )

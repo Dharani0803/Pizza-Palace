@@ -7,7 +7,11 @@ function CartProvider({ children }) {
   const [appliedOffer, setAppliedOffer] = useState("");
 
   const [cartItems, setCartItems] = useState(() => {
-  return JSON.parse(localStorage.getItem("cart")) || [];
+  try {
+    return JSON.parse(localStorage.getItem("cart")) || [];
+  } catch {
+    return [];
+  }
 });
 
 useEffect(() => {
@@ -70,13 +74,11 @@ useEffect(() => {
 
 const saveAddress = (addr) => {
   const cleanAddr = addr.trim();
-  if (!addr) return;
+  if (!cleanAddr) return;
 
-  setAddress(addr);
-  localStorage.setItem("address", addr);
+  setAddress(cleanAddr);
+  localStorage.setItem("address", cleanAddr);
 };
-
-const [deliveryTime, setDeliveryTime] = useState("Now");
 
   return (
 
@@ -90,9 +92,7 @@ const [deliveryTime, setDeliveryTime] = useState("Now");
     appliedOffer,
     setAppliedOffer,
     address,
-    saveAddress,
-    deliveryTime,
-    setDeliveryTime
+    saveAddress
   }}
 >
 

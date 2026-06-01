@@ -44,6 +44,10 @@ const buildUser = (firebaseUser) => {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
+    if (!email || !password) {
+  alert("Please enter email and password");
+  return;
+}
   try {
     const userCredential = await signInWithEmailAndPassword(
       auth,

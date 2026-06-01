@@ -9,15 +9,13 @@ function AdminOrders() {
     .then((data) => setOrders(data));
 }, []);
 
-  const updateStatus = async (id, value) => {
+ const updateStatus = async (id, value) => {
   try {
-    const res = await fetch(`https://pizza-palace-3.onrender.com/api/orders/${id}`, {
+    await fetch(`https://pizza-palace-3.onrender.com/api/orders/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: value }),
     });
-
-    const updatedOrder = await res.json();
 
     setOrders((prev) =>
       prev.map((order) =>
@@ -55,6 +53,7 @@ function AdminOrders() {
               <th className="text-left p-4">Customer</th>
               <th className="text-left p-4">Amount</th>
               <th className="text-left p-4">Status</th>
+              <th className="text-left p-4">Items</th>
             </tr>
 
           </thead>
@@ -73,7 +72,7 @@ function AdminOrders() {
                 </td>
 
                 <td className="p-4">
-                  {order.customerName || order.address || "Guest"}
+                  {order.address || "Guest"}
                 </td>
 
                 <td className="p-4">
@@ -100,6 +99,14 @@ function AdminOrders() {
                   </select>
 
                 </td>
+
+                <td className="p-4 text-sm space-y-1">
+  {order.items?.map((item, index) => (
+    <p key={index}>
+      🍕 {item.name} × {item.quantity}
+    </p>
+  ))}
+</td>
 
               </tr>
 
