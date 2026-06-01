@@ -25,11 +25,9 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* PUBLIC */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* USER PROTECTED */}
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/menu" element={<ProtectedRoute><Menu /></ProtectedRoute>} />
         <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
@@ -40,7 +38,6 @@ function App() {
         <Route path="/pizza/:id" element={<PizzaDetails />} />
         <Route path="/offers" element={<Offers />} />
 
-        {/* ADMIN ONLY */}
         <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         <Route path="/admin/pizzas" element={<AdminRoute><AdminPizzas /></AdminRoute>} />
         <Route path="/admin/orders" element={<AdminRoute><AdminOrders /></AdminRoute>} />

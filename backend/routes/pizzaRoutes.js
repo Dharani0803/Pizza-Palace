@@ -54,21 +54,12 @@ const {
     deletePizza
 } = require("../controllers/pizzaController");
 
-
-// GET
 router.get("/", getPizzas);
 
-
-// POST
 router.post("/", addPizza);
 
-
-// UPDATE
 router.put("/:id", updatePizza);
 
-
-// DELETE
 router.delete("/:id", deletePizza);
-
 
 module.exports = router;
