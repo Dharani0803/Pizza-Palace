@@ -39,16 +39,18 @@ const handlePayment = async () => {
 
   try {
     console.log("ORDER START");
+    console.log("FINAL TOTAL SENT:", finalTotal);
     const response = await fetch(
-      "https://pizza-palace-3.onrender.com/api/payment/create-order",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+  "https://pizza-palace-3.onrender.com/api/payment/create-order",
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
 
-        // IMPORTANT
-        amount: Math.round(finalTotal)
-      }
-    );
+    body: JSON.stringify({
+      amount: Math.round(finalTotal),
+    }),
+  }
+);
     console.log("ORDER RESPONSE:", response.status);
 
     const order = await response.json();
