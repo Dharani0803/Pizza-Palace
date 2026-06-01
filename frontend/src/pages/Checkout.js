@@ -43,7 +43,7 @@ const handlePayment = async () => {
 
         // IMPORTANT
         body: JSON.stringify({
-          amount: finalTotal * 100,
+          amount: finalTotal,
         }),
       }
     );
