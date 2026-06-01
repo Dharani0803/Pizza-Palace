@@ -43,7 +43,7 @@ const handlePayment = async () => {
 
         // IMPORTANT
         body: JSON.stringify({
-          amount: finalTotal,
+          amount: finalTotal * 100,
         }),
       }
     );
@@ -136,7 +136,7 @@ const orderData = {
   paymentMethod, // ✅ ADD THIS LINE
 };
 
-    const res = await fetch("https://localhost:5000/api/orders", {
+    const res = await fetch("https://pizza-palace-3.onrender.com/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(orderData),
