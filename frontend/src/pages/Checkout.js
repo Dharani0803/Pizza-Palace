@@ -18,7 +18,7 @@ function Checkout() {
     // IMPORTANT FIX
     setCartItems([]);
 
-    window.location.href = "/success";
+    navigate("/success");
   }
 };
 
@@ -80,7 +80,7 @@ const handlePayment = async () => {
           setCartItems([]);
 
           // SUCCESS PAGE
-          window.location.href = "/success";
+          navigate("/success");
         }
       },
 
