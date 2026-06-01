@@ -133,8 +133,7 @@ const orderData = {
   items: cartItems,
   totalAmount: finalTotal,
   status: "Pending",
-  paymentMethod,
-  userEmail: user?.email   // ✅ ADD THIS LINE
+  paymentMethod, // ✅ ADD THIS LINE
 };
 
     const res = await fetch("https://localhost:5000/api/orders", {
