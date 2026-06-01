@@ -46,9 +46,7 @@ const handlePayment = async () => {
         headers: { "Content-Type": "application/json" },
 
         // IMPORTANT
-        body: JSON.stringify({
-          amount: finalTotal,
-        }),
+        amount: Math.round(finalTotal)
       }
     );
     console.log("ORDER RESPONSE:", response.status);
