@@ -28,9 +28,6 @@ function Home(){
   useEffect(() => {
   setLoading(true);
 
- useEffect(() => {
-  setLoading(true);
-
   setTimeout(() => {
     fetch("https://pizza-palace-3.onrender.com/api/pizzas")
       .then((res) => res.json())
@@ -55,9 +52,10 @@ function Home(){
   const { cartItems, addToCart, increaseQuantity, decreaseQuantity, appliedOffer, setAppliedOffer } = useContext(CartContext);
   const handleAddToCart = (item) => { addToCart(item); };
 
-if (loading) {
+  if (loading) {
   return <PizzaSkeleton />;
-}
+  }
+
   return(
     <div>
     <nav className="flex justify-between items-center mt-2 mb-2">
@@ -374,7 +372,7 @@ if (loading) {
   </div>)}
   </div></div>
 
-</div>
-)}
+</div>)}
+
 
  export default Home
