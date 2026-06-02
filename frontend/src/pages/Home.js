@@ -28,11 +28,17 @@ function Home(){
   useEffect(() => {
   setLoading(true);
 
-  fetch("https://pizza-palace-3.onrender.com/api/pizzas")
-    .then((res) => res.json())
-    .then((data) => setPizzas(data))
-    .catch((err) => console.log(err))
-    .finally(() => setLoading(false));
+ useEffect(() => {
+  setLoading(true);
+
+  setTimeout(() => {
+    fetch("https://pizza-palace-3.onrender.com/api/pizzas")
+      .then((res) => res.json())
+      .then((data) => setPizzas(data))
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
+  }, 3000);
+
 }, []);
 
   const bestSellerNames = ["Margherita","Peppy Paneer","Indi Tandoori Paneer","Veggie Paradise","Pepper Barbecue Chicken","Classic","Golden Corn","Garlic Breadsticks","Veg Parcel","Cheese Volcano BBQ Chicken"];
