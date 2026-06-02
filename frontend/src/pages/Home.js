@@ -48,6 +48,7 @@ function Home(){
   const { cartItems, addToCart, increaseQuantity, decreaseQuantity, appliedOffer, setAppliedOffer } = useContext(CartContext);
   const handleAddToCart = (item) => { addToCart(item); };
 
+if (loading) {
   return(
     <div>
     <nav className="flex justify-between items-center mt-2 mb-2">
@@ -365,6 +366,6 @@ function Home(){
   </div></div>
 
 </div>
-)}
+)}}
 
  export default Home
