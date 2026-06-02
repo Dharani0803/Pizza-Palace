@@ -23,11 +23,16 @@ function Home(){
   const [city, setCity] = useState("");
   const { user } = useContext(UserContext);
   const [pizzas, setPizzas] = useState([]);
-  useEffect(() => {fetch("https://pizza-palace-3.onrender.com/api/pizzas")
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+  setLoading(true);
+
+  fetch("https://pizza-palace-3.onrender.com/api/pizzas")
     .then((res) => res.json())
     .then((data) => setPizzas(data))
-    .catch((err) => console.log(err));
-  }, []);
+    .catch((err) => console.log(err))
+    .finally(() => setLoading(false));
+}, []);
 
   const bestSellerNames = ["Margherita","Peppy Paneer","Indi Tandoori Paneer","Veggie Paradise","Pepper Barbecue Chicken","Classic","Golden Corn","Garlic Breadsticks","Veg Parcel","Cheese Volcano BBQ Chicken"];
   const bestsellers = pizzas.filter((pizza) =>bestSellerNames.includes(pizza.name));
