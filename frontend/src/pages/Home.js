@@ -50,6 +50,8 @@ function Home(){
   const handleAddToCart = (item) => { addToCart(item); };
 
 if (loading) {
+  return <PizzaSkeleton />;
+}
   return(
     <div>
     <nav className="flex justify-between items-center mt-2 mb-2">
@@ -367,6 +369,6 @@ if (loading) {
   </div></div>
 
 </div>
-)}}
+)}
 
  export default Home
