@@ -6,7 +6,7 @@ router.get("/", async (req, res) => {
   try {
     const { email } = req.query;
     const filter = email ? { userEmail: email } : {};
-    const orders = await Order.find(filter);
+    const orders = await Order.find(filter).sort({ createdAt: -1 });
     res.json(orders);
   } catch (err) {
     res.status(500).json({ message: err.message });

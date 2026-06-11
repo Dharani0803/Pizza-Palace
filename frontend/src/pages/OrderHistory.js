@@ -5,9 +5,33 @@ function OrderHistory() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
 
+  const cancelOrder = async (id) => {
+  try {
+    await fetch(`http://localhost:5000/api/orders/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        status: "Cancelled",
+      }),
+    });
+
+    setOrders((prev) =>
+      prev.map((order) =>
+        order._id === id
+          ? { ...order, status: "Cancelled" }
+          : order
+      )
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    fetch(`https://pizza-palace-3.onrender.com/api/orders?email=${user.email}`)
+    fetch(`http://localhost:5000/api/orders?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => setOrders(data));
   }, []);
@@ -51,10 +75,23 @@ function OrderHistory() {
       </div>
 
       <div className="flex justify-between items-center border-t border-dashed pt-4">
-        <p className="font-bold">₹{order.totalAmount}</p>
-        <button className="bg-[#E31837] text-white px-4 py-2 rounded-lg text-sm">
-          Reorder</button>
-      </div>
+  <p className="font-bold">₹{order.totalAmount}</p>
+
+  <div className="flex gap-2">
+    {order.status === "Pending" && (
+      <button
+        onClick={() => cancelOrder(order._id)}
+        className="bg-[#E31837] text-white px-4 py-2 rounded-lg text-sm"
+      >
+        Cancel Order
+      </button>
+    )}
+
+    <button onClick={() => navigate("/menu")} className="bg-[#E31837] text-white px-4 py-2 rounded-lg text-sm">
+      Reorder
+    </button>
+  </div>
+</div>
 
     </div>))}
     </div>)}

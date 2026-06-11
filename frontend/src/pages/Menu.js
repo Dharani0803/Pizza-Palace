@@ -1,21 +1,27 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,  useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import Offer from "../assets/offer.svg"
+import { motion } from "framer-motion";
+import MenuSkeleton from "../components/MenuSkeleton";
 
 function Menu(){
   const Categories = ["Chicken Feast","Cheese Lava","Big Big Pizza","Sourdough Range","Rice Bowls","5 Course Lunch Feast","Veg Pizza","Non-Veg Pizza","Pizza Mania","Chicken Maxxx","Garlic Breads & Dips","Cheese Burst Pizza","Crazy Deals","Cheese Volcano","Desserts","Beverages","Tacos & Parcels"]
   const [pizzas, setPizzas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState(Categories[0]);
-  const { cartItems, addToCart, increaseQuantity, decreaseQuantity} = useContext(CartContext);
+  const [selectedCategory, setSelectedCategory] =
+  useState(location.state?.category || Categories[0]);
+  const { cartItems, showToast, addToCart, increaseQuantity, decreaseQuantity} = useContext(CartContext);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [vegFilter, setVegFilter] = useState(false);
   const [nonVegFilter, setNonVegFilter] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [sortOrder, setSortOrder] = useState("");
+
 
   const filteredPizzas = pizzas
   .filter((pizza) => {
@@ -47,14 +53,25 @@ function Menu(){
   console.log(filteredPizzas);
 
   useEffect(() => {
-  fetch("https://pizza-palace-3.onrender.com/api/pizzas")
+  setLoading(true);
+
+  fetch("http://localhost:5000/api/pizzas")
     .then((res) => res.json())
     .then((data) => setPizzas(data))
-    .catch((err) => console.log(err));
-  }, []);
+    .catch((err) => console.log(err))
+    .finally(() => setLoading(false));
+}, []);
+
+if (loading) {
+  return <MenuSkeleton />;
+}
     
   return(
-    <div>
+    <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.3 }}
+>
       <nav className="flex justify-between items-center m-3">
         <div className="flex items-center gap-5 cursor-pointer" onClick={() => navigate(-1)}>
           <i className="fa-solid fa-arrow-left"></i>
@@ -103,15 +120,49 @@ function Menu(){
       onClick={() => setSelectedCategory(category)}>{category}</button>))}
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 px-3 py-4">
-    {filteredPizzas.map((pizza, index) => {
-    const cartItem = cartItems.find(
-      (item) => item._id === pizza._id
-    );
+
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 px-3 py-4 pb-40">
+    {filteredPizzas.length === 0 ? (
+  <div className="col-span-full flex flex-col items-center justify-center py-20 text-center">
+    
+    <div className="text-6xl">🍕</div>
+
+    <h2 className="text-lg font-semibold mt-3">
+      No pizzas found
+    </h2>
+
+    <p className="text-sm text-gray-500 mt-1">
+      Try different search or category
+    </p>
+
+    <button
+      onClick={() => {
+        setSearchTerm("");
+        setVegFilter(false);
+        setNonVegFilter(false);
+        setSelectedCategory(Categories[0]);
+        setSortOrder("");
+      }}
+      className="mt-4 bg-red-600 text-white px-4 py-2 rounded-md"
+    >
+      Reset
+    </button>
+
+  </div>
+) : (
+  filteredPizzas.map((pizza, index) => {
+    
+   const cartItem = cartItems.find(
+  (item) => item._id === pizza._id);
+console.log(
+  pizza.name,
+  cartItem?.size,
+  cartItem?.crust
+);
 
     return (
-    <div key={index} className="relative rounded-md shadow-md overflow-hidden flex-shrink-0">
-      <img src={pizza.imageUrl} alt={pizza.name} className="w-full h-80 object-cover"/>
+    <div key={pizza._id} className="relative rounded-md shadow-md overflow-hidden flex-shrink-0">
+      <img  onClick={() => navigate(`/pizza/${pizza._id}`, { state: pizza, category: selectedCategory })} src={pizza.imageUrl} alt={pizza.name} className="w-full h-80 object-cover"/>
 
       <div className="absolute bottom-0 text-white w-full">
       <div className="px-3 py-2">
@@ -121,7 +172,7 @@ function Menu(){
         <div className={`w-[14px] h-[14px] border rounded-[2px] flex items-center justify-center
           ${ pizza.isVeg ? "border-green-600" : "border-[#8B4513]"}`}>
           {pizza.isVeg ? (<div className="w-[7px] h-[7px] bg-green-600 rounded-full"></div>) : (
-          <div className="w-0 h-0 border-l-[4px] border-l-transparen border-r-[4px] border-r-transparent border-b-[7px] border-b-[#8B4513]">
+          <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[7px] border-b-[#8B4513]">
           </div>)}
         </div>
       </div>
@@ -132,26 +183,55 @@ function Menu(){
       <div className="flex items-center p-3 justify-between border-t inset-0 bg-black/30 backdrop-blur-md">
       <div className="flex-col">
       <span className="text-xl font-bold">₹{pizza.price}</span>
-      <p className="text-xs font-bold border-b pb-1 border-dashed">
-        Regular | New Hand Tossed <i class="fa-solid fa-angle-right"></i></p>
+      {pizza.hasSize && pizza.hasCrust && (<p
+  className="text-xs font-bold border-b pb-1 border-dashed"
+  onClick={() => navigate(`/pizza/${pizza._id}`, {
+  state: {
+    pizza, category: selectedCategory
+  }
+})}
+>
+  {pizza.hasSize && (cartItem?.size || "Regular")}
+{pizza.hasSize && pizza.hasCrust && " | "}
+{pizza.hasCrust && (cartItem?.crust || "New Hand Tossed")}
+
+  <i className="fa-solid fa-angle-right"></i>
+</p>)}
       </div>
 
       { cartItem ? (
       <div className="flex items-center gap-4 bg-transparent border border-gray-200 text-white px-4 py-2 rounded-md">
-        <button onClick={() => decreaseQuantity(pizza._id)}> - </button>
+        <button onClick={() => decreaseQuantity(
+  pizza._id,
+  cartItem?.size || "NA",
+  cartItem?.crust || "NA"
+)}>-</button>
         <span>{cartItem.quantity}</span>
-        <button onClick={() => increaseQuantity(pizza._id)}> + </button>
+        <button onClick={() =>increaseQuantity(
+  pizza._id,
+  cartItem?.size || "NA",
+  cartItem?.crust || "NA"
+)
+}>+</button>
       </div>
 
       ) : (
 
-      <button onClick={() => addToCart(pizza)} 
+      <button onClick={() => {
+  addToCart({
+  ...pizza,
+  size: pizza.hasSize ? "Regular" : "NA",
+  crust: pizza.hasCrust ? "New Hand Tossed" : "NA"
+});
+
+  showToast("Your item is added to the cart 🍕");
+}}
         className="bg-[#E31837] px-5 py-2 rounded-md font-semibold text-white">
         Add +
       </button>)}
 
       </div></div>
-    </div>)})}</div>
+    </div>)}))}</div>
 
   
     {cartItems.length > 0 && (
@@ -184,7 +264,7 @@ function Menu(){
       
     </div></div></div>)}
     
-  </div>
+  </motion.div>
 )}
 
 export default Menu

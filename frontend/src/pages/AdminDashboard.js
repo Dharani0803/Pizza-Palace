@@ -7,7 +7,7 @@ function AdminDashboard() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch("https://pizza-palace-3.onrender.com/api/orders")
+    fetch("http://localhost:5000/api/orders")
       .then((res) => res.json())
       .then((data) => setOrders(data));
   }, []);
@@ -30,7 +30,7 @@ function AdminDashboard() {
       <div className="flex justify-between items-center mb-6">
       <div className="flex gap-3">
 
-        <div><i onClick={() => navigate(-1)} className="fa-solid fa-arrow-left cursor-pointer"></i></div>
+        <div><i onClick={() => navigate(-1)} className="fa-solid fa-arrow-left cursor-pointer pt-2"></i></div>
         <div>
           <p className="text-2xl font-bold">Admin Dashboard</p>
           <p className="text-gray-500">Orders, Revenue & Delivery Tracking</p>
@@ -109,7 +109,7 @@ function AdminDashboard() {
       </div>))}
       </div>)}
 
-      <div className="mt-4 border-t pt-3 flex justify-between">
+      <div className="mt-4 px-4 border-t pt-3 flex justify-between">
         <p className="font-bold">Total Revenue</p>
         <p className="font-bold">₹{totalRevenue}</p>
       </div>

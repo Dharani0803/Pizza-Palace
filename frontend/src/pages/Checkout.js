@@ -4,8 +4,48 @@ import { useNavigate } from "react-router-dom";
 
 function Checkout() {
   const navigate = useNavigate();
-  const { cartItems, setCartItems, address} = useContext(CartContext);
+  const { cartItems, setCartItems, address, customerName} = useContext(CartContext);
+  console.log("customerName from context =", customerName);
+console.log("customerName from localStorage =", localStorage.getItem("customerName"));
   const [paymentMethod, setPaymentMethod] = useState("");
+  const paymentMethods = [
+  {
+    id: "UPI",
+    label: "UPI Payment",
+    icon: <i class="fa-brands fa-google-play"></i>,
+  },
+  {
+    id: "CREDIT_CARD",
+    label: "Credit Card",
+    icon: <i className="fa-regular fa-credit-card text-xl"></i>,
+  },
+  {
+    id: "DEBIT_CARD",
+    label: "Debit Card",
+    icon: <i className="fa-regular fa-credit-card text-xl"></i>,
+  },
+  {
+    id: "NETBANKING",
+    label: "Net Banking",
+    icon: <i className="fa-solid fa-building-columns text-xl"></i>,
+  },
+  {
+    id: "WALLET",
+    label: "Wallet",
+    icon: <i className="fa-solid fa-wallet text-xl"></i>,
+  },
+  {
+    id: "COD",
+    label: "Cash / UPI on Delivery",
+    icon: <div className="w-6 h-6 border border-black rounded-full flex items-center justify-center">
+  <i className="fa-solid fa-indian-rupee-sign text-xs"></i>
+</div>
+  },
+];
+
+const selectedMethod = paymentMethods.find(
+  (method) => method.id === paymentMethod
+);
 
   const handleCOD = async () => {
   const success = await placeOrderToBackend();
@@ -29,7 +69,7 @@ function Checkout() {
   try {
     console.log("ORDER START");
     console.log("FINAL TOTAL SENT:", finalTotal);
-    const response = await fetch("https://pizza-palace-3.onrender.com/api/payment/create-order",
+    const response = await fetch("http://localhost:5000/api/payment/create-order",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -84,6 +124,9 @@ function Checkout() {
   const [showDiscount, setShowDiscount] = useState(false);
   const [showTaxes, setShowTaxes] = useState(false);
 
+  console.log("customerName:", customerName);
+console.log("address:", address);
+
   const placeOrderToBackend = async () => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
@@ -93,8 +136,10 @@ function Checkout() {
         status: "Pending",
         paymentMethod,
         userEmail: user?.email,
+        customerName,
+        address
       };
-    const res = await fetch("https://pizza-palace-3.onrender.com/api/orders",
+    const res = await fetch("http://localhost:5000/api/orders",
       {
         method: "POST",
         headers: {
@@ -125,33 +170,40 @@ function Checkout() {
     <div className="min-h-screen bg-gray-100 pb-20">   
     <div className="md:flex-row flex flex-col gap-5 px-6 py-5">
 
-    //Payment Options
+    
     <div className="md:w-[70%] bg-white">
       <h2 className=" font-semibold px-5 pt-3">Payment Options</h2>
 
-    {[
-      { id: "UPI", label: "UPI" },
-      { id: "CREDIT CARD", label: "Credit Card" },
-      { id: "DEBIT CARD", label: "Debit Card" },
-      { id: "NETBANKING", label: "Net Banking" },
-      { id: "WALLET", label: "Wallet" },
-      { id: "COD", label: "Cash / UPI on Delivery" },
-    ].map((method) => (
-    <div key={method.id} onClick={() => setPaymentMethod(method.id)}
-    className={`flex items-center justify-between border-b py-6 px-7 rounded-md cursor-pointer border-gray-200
-       ${ paymentMethod === method.id }`}>
-
+    {paymentMethods.map((method) => (
+  <div
+    key={method.id}
+    onClick={() => setPaymentMethod(method.id)}
+    className="flex items-center justify-between border-b py-6 px-7 cursor-pointer border-gray-200"
+  >
+    <div className="flex items-center gap-3">
+      {method.icon}
       <p className="text-sm">{method.label}</p>
-      <div className={`w-4 h-4 rounded-full border flex items-center justify-center
-      ${ paymentMethod === method.id ? "border-green-600" : "border-gray-400" }`}>
-        {paymentMethod === method.id && (<div className="w-2 h-2 bg-green-600 rounded-full"></div>)}
-      </div>
-  </div>))}
+    </div>
+
+    <div
+      className={`w-4 h-4 rounded-full border flex items-center justify-center
+      ${
+        paymentMethod === method.id
+          ? "border-green-600"
+          : "border-gray-400"
+      }`}
+    >
+      {paymentMethod === method.id && (
+        <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+      )}
+    </div>
+  </div>
+))}
   </div>
 
 
   <div className="md:w-[30%]">
-  //Delivery Address
+  
   <div className="bg-white p-4 rounded-lg">
     <div className="flex items-center gap-2 border-b border-dashed pb-2">
       <i className="fa-solid fa-location-dot text-red-700"></i>
@@ -167,7 +219,7 @@ function Checkout() {
     </div>
   </div>
   
-  //Order Summary
+  
   <div className="bg-white p-5 mt-5">
     <p className ="font-semibold pb-3">Order Summary</p>
 
@@ -212,7 +264,7 @@ function Checkout() {
     </div>
 
     <div>
-    <div className="flex justify-between pb-3 border-b border-gray-100 cursor-pointer" onClick={() => setShowTaxes(!showTaxes)}>
+    <div className="flex justify-between pb-2 border-b border-gray-100 cursor-pointer" onClick={() => setShowTaxes(!showTaxes)}>
       <div className="flex gap-1 items-center">
         <p className="text-xs text-gray-500">Taxes & Charges</p>
         <i className={`fa-solid ${ showTaxes ? "fa-angle-up" : "fa-angle-down"} text-xs text-gray-500`}></i>
@@ -222,7 +274,7 @@ function Checkout() {
 
     {showTaxes && (
     <div className="text-xs text-gray-500 pl-3 pb-2 space-y-1">
-      <div className="flex justify-between">
+      <div className="flex justify-between pt-2">
         <p>Taxes</p>
         <p>₹{tax.toFixed(2)}</p>
       </div>
@@ -241,9 +293,14 @@ function Checkout() {
   </div>   
   </div></div>
 
-  //Bottom Section
+  
   <div className="fixed bottom-0 left-0 w-full bg-white border-t flex justify-between items-center px-6 py-3">
-    <div className="text-sm font-medium">{paymentMethod || "Select Payment Method"}</div>
+     <div className="flex items-center gap-2">
+    {selectedMethod?.icon}
+    <span className="text-sm font-medium">
+      {selectedMethod?.label || "Select Payment Method"}
+    </span>
+  </div>
 
     <button onClick={handlePayment} className=" bg-[#E31837] text-white px-3 py-2 rounded-md font-semibold">
       {paymentMethod === "COD" ? "Place Order" : "Pay Now"}</button>

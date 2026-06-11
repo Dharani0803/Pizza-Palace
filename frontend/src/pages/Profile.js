@@ -1,11 +1,40 @@
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
 function Profile() {
 
     const navigate = useNavigate();
-    const { user } = useContext(UserContext);
+    const { user, setUser, showToast } = useContext(UserContext);
+    const [name, setName] = useState(user?.name || "");
+const [email, setEmail] = useState(user?.email || "");
+const [mobile, setMobile] = useState(user?.mobile || "");
+const [dob, setDob] = useState(user?.dob || "");
+const [gender, setGender] = useState(user?.gender || "");
+const [address, setAddress] = useState(user?.address || "");
+
+
+const handleSave = () => {
+  const updatedUser = {
+    ...user,
+    name,
+    email,
+    mobile,
+    dob,
+    gender,
+    address
+  };
+
+  setUser(updatedUser);
+  localStorage.setItem("user", JSON.stringify(updatedUser));
+showToast("Profile updated successfully 🎉");
+
+  setTimeout(() => {
+    navigate("/");
+  }, 800);
+};
 
 return (
     <div className="min-h-screen bg-[#F5F5F7]">
@@ -28,30 +57,31 @@ return (
 
         <div>
             <label className="text-sm font-semibold">Full Name</label>
-            <input type="text" value={user?.email || ""} placeholder="Enter your name"
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter your name"
             className="w-full border border-gray-300 rounded-xl px-4 py-3 mt-2 outline-none"/>
         </div>
 
         <div>
             <label className="text-sm font-semibold">Email Address</label>
-            <input type="email" value={user?.email || ""} placeholder="Enter your email"
+            <input type="email" value={email} placeholder="Enter your email"
             className="w-full border border-gray-300 rounded-xl px-4 py-3 mt-2 outline-none"/>
         </div>
 
         <div>
             <label className="text-sm font-semibold">Mobile Number</label>
-            <input type="text" placeholder="Enter mobile number"
+            <input type="text"  placeholder="Enter mobile number"  value={mobile} onChange={(e) => setMobile(e.target.value)}
             className="w-full border border-gray-300 rounded-xl px-4 py-3 mt-2 outline-none"/>
         </div>
 
         <div>
             <label className="text-sm font-semibold">Date of Birth</label>
-            <input type="date" className="w-full border border-gray-300 rounded-xl px-4 py-3 mt-2 outline-none"/>
+            <input type="date" value={user?.dob || ""} onChange={(e) => setDob(e.target.value)}
+            className="w-full border border-gray-300 rounded-xl px-4 py-3 mt-2 outline-none"/>
         </div>
 
         <div>
             <label className="text-sm font-semibold">Gender</label>
-            <select className="w-full border border-gray-300 rounded-xl px-4 py-3 mt-2 outline-none">
+            <select value={gender} onChange={(e) => setGender(e.target.value)} className="w-full border border-gray-300 rounded-xl px-4 py-3 mt-2 outline-none">
                 <option>Male</option>
                 <option>Female</option>
                 <option>Other</option>
@@ -60,11 +90,12 @@ return (
 
         <div>
             <label className="text-sm font-semibold">Address</label>
-            <textarea placeholder="Enter address"
+            <textarea placeholder="Enter address" value={address} onChange={(e) => setAddress(e.target.value)}
             className="w-full border border-gray-300 rounded-xl px-4 py-3 mt-2 outline-none h-28"/>
         </div>
 
-        <button className="w-full bg-[#E31837] text-white py-3 rounded-xl font-semibold">Save Changes</button>
+        <button className="w-full bg-[#E31837] text-white py-3 rounded-xl font-semibold"
+        type="button" onClick={handleSave}>Save Changes</button>
 
     </form>
 

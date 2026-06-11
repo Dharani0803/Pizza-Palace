@@ -101,7 +101,7 @@ return (
       <p className="text-sm text-center mt-6">
         Don’t have an account?{" "}
         <Link to="/signup" className="text-[#E31837] font-semibold">
-          Signup
+         Signup
         </Link>
       </p>
 

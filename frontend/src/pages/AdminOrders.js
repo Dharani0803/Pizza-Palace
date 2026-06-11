@@ -6,14 +6,14 @@ function AdminOrders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-  fetch("https://pizza-palace-3.onrender.com/api/orders")
+  fetch("http://localhost:5000/api/orders")
     .then((res) => res.json())
     .then((data) => setOrders(data));
   }, []);
 
  const updateStatus = async (id, value) => {
   try {
-    await fetch(`https://pizza-palace-3.onrender.com/orders/${id}`, {
+    await fetch(`http://localhost:5000/api/orders/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: value }),
@@ -33,7 +33,7 @@ function AdminOrders() {
       <div className="mb-6">
       <div className="flex gap-3">
         <div>
-          <i onClick={() => navigate(-1)} className="fa-solid fa-arrow-left cursor-pointer"></i>
+          <i onClick={() => navigate(-1)} className="fa-solid fa-arrow-left cursor-pointer pt-2"></i>
         </div>
         <div>
           <p className="text-2xl font-bold">Orders Management</p>
@@ -44,7 +44,7 @@ function AdminOrders() {
       <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
       <table className="w-full">
 
-        <thead className="bg-gray-100">
+        <thead className="bg-white">
         <tr>
           <th className="text-left p-4">Order ID</th>
           <th className="text-left p-4">Customer</th>
@@ -58,7 +58,7 @@ function AdminOrders() {
         {orders.map((order) => (
         <tr key={order._id} className="border-t">
           <td className="p-4 font-semibold">{order._id}</td>
-          <td className="p-4">{order.address || "Guest"}</td>
+          <td className="p-4">{order.customerName || "Guest"}</td>
           <td className="p-4">₹{order.totalAmount}</td>
           <td className="p-4">
             <select value={order.status} onChange={(e) => updateStatus( order._id, e.target.value)}

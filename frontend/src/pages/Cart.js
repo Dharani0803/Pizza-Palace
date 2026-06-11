@@ -3,6 +3,7 @@ import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import Delivery from "../assets/Delivery.png"
 import Offer from "../assets/offer.svg"
+import { motion } from "framer-motion";
 
 function Cart(){
 
@@ -23,7 +24,7 @@ function Cart(){
     const finalTotal = subtotal + tax + packagingCharge - discount;
 
     const [showAddress, setShowAddress] = useState(false);
-    const { address, saveAddress } = useContext(CartContext);
+    const { address, saveAddress, saveCustomerName } = useContext(CartContext);
 
     const handleCheckout = () => {
       if (!address || address.trim() === "") {
@@ -39,8 +40,26 @@ function Cart(){
     const [landmark, setLandmark] = useState("");
     const [city, setCity] = useState("");
 
+    if (cartItems.length === 0) {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen text-center">
+      <img src={Delivery} alt="Empty Cart" className="w-30 mb-4" />
+      <h2 className="text-xl font-bold">Your Cart is Empty</h2>
+      <p className="text-gray-500 text-sm mt-2">
+        Add some delicious pizzas 🍕
+      </p>
+      <button
+        onClick={() => navigate("/menu")}
+        className="mt-5 bg-[#E31837] text-white px-5 py-2 rounded-md"
+      >
+        Go to Menu
+      </button>
+    </div>
+  );
+}
+
     return(
-      <div>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
         <nav className="flex justify-between items-center m-5">
         <div className="flex  items-center gap-3" onClick={() => navigate(-1)}>
           <i class="fa-solid fa-arrow-left"></i>
@@ -53,8 +72,7 @@ function Cart(){
         </nav>
 
       <div className="bg-[#EEEEF1] md:px-40 px-5 py-5 ">
-
-      //Delivery Address
+      
       <div className="bg-white p-3 flex gap-5 items-center rounded-lg mb-5">
 
         <div className="bg-[#FFFFFF] p-2 border border-gray-100 rounded-lg flex gap-1 items-center cursor-pointer">
@@ -75,36 +93,67 @@ function Cart(){
         </div>
       </div>
 
-    //Cart Item Details
+   
     <div className="flex flex-col md:flex-row md:gap-10 gap-5">
     <div className="bg-white p-3 rounded-lg md:w-[60%]">
     {cartItems.map((item) => (
-      <div key={item._id} className="flex justify-between border-b border-dashed pb-5 mb-5">
+      <div key={item._id} className="flex items-center justify-between border-b border-dashed pb-5 mb-5">
       <div>
-        <p className="font-semibold"> {item.name}</p>
-        <p className="text-sm text-gray-500"> Regular | New Hand Tossed</p>
-      <div className="flex items-center mt-1 gap-1">
+        <div className="flex items-center gap-2">
+  <div className="bg-white p-[1px] rounded-sm">
+    <div
+      className={`w-[14px] h-[14px] border rounded-[2px] flex items-center justify-center
+      ${item.isVeg ? "border-green-600" : "border-[#8B4513]"}`}
+    >
+      {item.isVeg ? (
+        <div className="w-[7px] h-[7px] bg-green-600 rounded-full"></div>
+      ) : (
+        <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[7px] border-b-[#8B4513]"></div>
+      )}
+    </div>
+  </div>
+
+  <p className="font-semibold">{item.name}</p>
+  </div>
+          {(item.hasSize || item.hasCrust) && (
+    <p className="text-sm text-gray-500">
+      {item.hasSize && item.size}
+      {item.hasSize && item.hasCrust && " | "}
+      {item.hasCrust && item.crust}
+    </p>
+  )}
+
+  {(item.hasSize || item.hasCrust) && (
+  <div className="flex items-center mt-1 gap-1" onClick={() =>
+    navigate(`/pizza/${item._id}`, {
+      state: {
+        pizza: item,
+        size: item.size,
+        crust: item.crust,
+      },
+    })
+  }>
         <p className="text-xs text-gray-500 border-b border-gray-500 border-dashed font-bold"> Customize</p>
         <i className="fa-solid fa-angle-right text-xs text-gray-500"></i>
-      </div></div>
+      </div>)}</div>
 
       <div className="flex items-center gap-5">
       <div className="flex items-center gap-4 bg-[#FFFFFF] p-1 border border-gray-200 rounded-lg">
-        <button onClick={() => decreaseQuantity(item._id)}>-</button>
+        <button onClick={() => decreaseQuantity(item._id, item.size, item.crust)}>-</button>
         <p> {item.quantity} </p>
-        <button onClick={() => increaseQuantity(item._id)}> +</button>
+        <button onClick={() => increaseQuantity(item._id, item.size, item.crust)}> +</button>
       </div>
       <div>₹ {item.price * item.quantity}</div>
       </div>
     </div>))}
 
-    <div className="flex items-center gap-2 pt-3">
+    <div className="flex items-center gap-2 ">
       <button onClick={() => navigate("/menu")} className="text-gray-500"> +</button>
       <p className="text-gray-500 text-sm font-semibold">Add more items</p>
     </div>
     </div>
 
-    //Offer & Deals
+    
     <div>
     <div className="bg-white p-5 rounded-lg">
       <p className="text-green-700 font-semibold"> You saved ₹{totalSavings} with FREE Delivery 🎉</p>
@@ -141,7 +190,7 @@ function Cart(){
     </div>
 
     
-    //Order Summary
+   
     <div className="bg-white p-5 rounded-lg mt-5">
     <div className="flex justify-between pb-2">
       <p className="text-xs text-gray-500">Item(s) Total</p>
@@ -206,7 +255,7 @@ function Cart(){
     </div>      
     </div>
 
-    //Bottom Section
+    
     <div className="flex items-center gap-2 px-5 py-1 border border-gray-200">
       <div>
         <img src={Offer} alt="Offer"></img>
@@ -223,7 +272,7 @@ function Cart(){
       <i class="fa-solid fa-angle-right text-xs text-white"></i></div>
     </div>
 
-  //Address Popup
+  
   {showAddress && (
   <div className="fixed inset-0 bg-black/40 z-50 flex justify-center items-center">
   <div className="bg-white w-[95%] md:w-[500px] rounded-2xl p-6 relative">
@@ -259,13 +308,13 @@ function Cart(){
       />
       <button onClick={() => { if (!house || !street || !city) return;
         const fullAddress = `${house}, ${street}, ${landmark}, ${city}`;
-          saveAddress(fullAddress);
+          saveCustomerName(fullName);saveAddress(fullAddress);
           setShowAddress(false);
         }} className="w-full bg-[#E31837] text-white py-3 rounded-lg font-semibold">
         Save Address</button>
     </div>
   </div>
   </div>)}
-</div>)}
+</motion.div>)}
 
 export default Cart

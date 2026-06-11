@@ -15,14 +15,14 @@ function AdminPizzas() {
   });
 
   useEffect(() => {
-    fetch("https://pizza-palace-3.onrender.com/api/pizzas")
+    fetch("http://localhost:5000/api/pizzas")
       .then((res) => res.json())
       .then((data) => setPizzas(data));
   }, []);
 
   const addPizza = async () => {
     const response = await fetch(
-      "https://pizza-palace-3.onrender.com/api/pizzas",
+      "http://localhost:5000/api/pizzas",
       {
         method: "POST",
         headers: {
@@ -69,7 +69,7 @@ function AdminPizzas() {
             onChange={(e) => setNewPizza({ ...newPizza, price: e.target.value })}
           />
           <input placeholder="Category" value={newPizza.category} className="border rounded-lg px-4 py-3"
-            onChange={(e) = setNewPizza({ ...newPizza, category: e.target.value })}
+            onChange={(e) => setNewPizza({ ...newPizza, category: e.target.value })}
           />
           <input placeholder="Image URL" value={newPizza.imageUrl} className="border rounded-lg px-4 py-3"
            onChange={(e) => setNewPizza({ ...newPizza, imageUrl: e.target.value })}
