@@ -6,14 +6,14 @@ function AdminOrders() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-  fetch("http://localhost:5000/api/orders")
+  fetch("https://pizza-palace-3.onrender.com/api/orders")
     .then((res) => res.json())
     .then((data) => setOrders(data));
   }, []);
 
  const updateStatus = async (id, value) => {
   try {
-    await fetch(`http://localhost:5000/api/orders/${id}`, {
+    await fetch(`https://pizza-palace-3.onrender.com/api/orders/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status: value }),

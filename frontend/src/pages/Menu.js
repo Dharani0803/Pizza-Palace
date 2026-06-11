@@ -55,7 +55,7 @@ function Menu(){
   useEffect(() => {
   setLoading(true);
 
-  fetch("http://localhost:5000/api/pizzas")
+  fetch("https://pizza-palace-3.onrender.com/api/pizzas")
     .then((res) => res.json())
     .then((data) => setPizzas(data))
     .catch((err) => console.log(err))

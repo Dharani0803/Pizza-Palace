@@ -15,14 +15,14 @@ function AdminPizzas() {
   });
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/pizzas")
+    fetch("https://pizza-palace-3.onrender.com/api/pizzas")
       .then((res) => res.json())
       .then((data) => setPizzas(data));
   }, []);
 
   const addPizza = async () => {
     const response = await fetch(
-      "http://localhost:5000/api/pizzas",
+      "https://pizza-palace-3.onrender.com/api/pizzas",
       {
         method: "POST",
         headers: {

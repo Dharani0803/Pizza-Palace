@@ -7,7 +7,7 @@ function OrderHistory() {
 
   const cancelOrder = async (id) => {
   try {
-    await fetch(`http://localhost:5000/api/orders/${id}`, {
+    await fetch(`https://pizza-palace-3.onrender.com/api/orders/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ function OrderHistory() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    fetch(`http://localhost:5000/api/orders?email=${user.email}`)
+    fetch(`https://pizza-palace-3.onrender.com/api/orders?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => setOrders(data));
   }, []);

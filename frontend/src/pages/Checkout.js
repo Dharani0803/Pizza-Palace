@@ -69,7 +69,7 @@ const selectedMethod = paymentMethods.find(
   try {
     console.log("ORDER START");
     console.log("FINAL TOTAL SENT:", finalTotal);
-    const response = await fetch("http://localhost:5000/api/payment/create-order",
+    const response = await fetch("https://pizza-palace-3.onrender.com/api/payment/create-order",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -139,7 +139,7 @@ console.log("address:", address);
         customerName,
         address
       };
-    const res = await fetch("http://localhost:5000/api/orders",
+    const res = await fetch("https://pizza-palace-3.onrender.com/api/orders",
       {
         method: "POST",
         headers: {
