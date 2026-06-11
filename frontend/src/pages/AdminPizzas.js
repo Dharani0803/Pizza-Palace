@@ -85,6 +85,7 @@ function AdminPizzas() {
           className="border rounded-lg px-4 py-3 w-full mt-4"
         ></textarea>
 
+        <div className="flex">
         <div className="flex items-center gap-3 mt-4">
           <input type="checkbox" checked={newPizza.isVeg}
             onChange={(e) => setNewPizza({ ...newPizza, isVeg: e.target.checked })}
@@ -93,7 +94,7 @@ function AdminPizzas() {
 
         </div>
 
-        <div className="flex items-center gap-3 mt-4">
+        <div className="flex items-center gap-3 mt-2">
   <input
     type="checkbox"
     checked={newPizza.hasSize}
@@ -101,7 +102,7 @@ function AdminPizzas() {
       setNewPizza({ ...newPizza, hasSize: e.target.checked })
     }
   />
-  <p>Has Size Options</p>
+  <p>Has Size </p>
 </div>
 
 <div className="flex items-center gap-3 mt-2">
@@ -112,8 +113,8 @@ function AdminPizzas() {
       setNewPizza({ ...newPizza, hasCrust: e.target.checked })
     }
   />
-  <p>Has Crust Options</p>
-</div>
+  <p>Has Crust </p>
+</div></div>
 
         <button onClick={addPizza} className="bg-[#E31837] text-white px-5 py-3 rounded-xl font-semibold mt-5">
           Add Pizza</button>
