@@ -6,10 +6,11 @@ const pizzaSchema = new mongoose.Schema({
   imageUrl: String,
   category: String,
   isVeg: Boolean,
+  hasSize: Boolean,
+  hasCrust: Boolean,
   description: String,
 });
 
-// ✅ THIS IS THE FIX (prevents overwrite error)
 const Pizza =
   mongoose.models.Pizza || mongoose.model("Pizza", pizzaSchema);
 

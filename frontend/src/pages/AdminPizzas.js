@@ -11,7 +11,9 @@ function AdminPizzas() {
     price: "",
     category: "",
     imageUrl: "",
-    isVeg: true
+    isVeg: true,
+    hasSize: true,
+    hasCrust: true
   });
 
   useEffect(() => {
@@ -39,7 +41,9 @@ function AdminPizzas() {
       price: "",
       category: "",
       imageUrl: "",
-      isVeg: true
+      isVeg: true,
+      hasSize: true,
+      hasCrust: true
     });
   };
 
@@ -88,6 +92,28 @@ function AdminPizzas() {
           <p>Veg Pizza</p>
 
         </div>
+
+        <div className="flex items-center gap-3 mt-4">
+  <input
+    type="checkbox"
+    checked={newPizza.hasSize}
+    onChange={(e) =>
+      setNewPizza({ ...newPizza, hasSize: e.target.checked })
+    }
+  />
+  <p>Has Size Options</p>
+</div>
+
+<div className="flex items-center gap-3 mt-2">
+  <input
+    type="checkbox"
+    checked={newPizza.hasCrust}
+    onChange={(e) =>
+      setNewPizza({ ...newPizza, hasCrust: e.target.checked })
+    }
+  />
+  <p>Has Crust Options</p>
+</div>
 
         <button onClick={addPizza} className="bg-[#E31837] text-white px-5 py-3 rounded-xl font-semibold mt-5">
           Add Pizza</button>

@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// CREATE ORDER
+
 router.post("/", async (req, res) => {
   try {
     const newOrder = new Order(req.body);
@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// UPDATE ORDER STATUS
+
 router.put("/:id", async (req, res) => {
   try {
     const updated = await Order.findByIdAndUpdate(

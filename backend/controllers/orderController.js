@@ -14,7 +14,7 @@ const getOrders = async (req, res) => {
 };
 
 
-// PLACE ORDER
+
 const placeOrder = async (req, res) => {
 
     try {
@@ -31,7 +31,7 @@ const placeOrder = async (req, res) => {
 };
 
 
-// UPDATE STATUS
+
 const updateOrderStatus = async (req, res) => {
 
     try {

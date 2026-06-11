@@ -39,7 +39,7 @@ function CartProvider({ children }) {
     );
 
     if (existingIndex !== -1) {
-      // only increase when user clicks + in Menu, NOT on update page
+      
       const updated = [...prev];
       updated[existingIndex].quantity += 1;
       return updated;
@@ -50,12 +50,6 @@ function CartProvider({ children }) {
 };
 
 const updateCartItem = (id, size, crust, updatedItem) => {
-
-  console.log("=== updateCartItem ===");
-  console.log("id:", id);
-  console.log("size:", size);
-  console.log("crust:", crust);
-  console.log("updatedItem:", updatedItem);
 
   setCartItems((prev) =>
     prev.map((item) =>

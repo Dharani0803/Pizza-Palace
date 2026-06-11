@@ -1,7 +1,6 @@
 const Pizza = require("../models/Pizza");
 
 
-// GET ALL PIZZAS
 const getPizzas = async (req, res) => {
 
     try {
@@ -14,7 +13,7 @@ const getPizzas = async (req, res) => {
     }
 };
 
-// ADD PIZZA
+
 const addPizza = async (req, res) => {
 
     try {
@@ -29,7 +28,7 @@ const addPizza = async (req, res) => {
     }
 };
 
-// UPDATE PIZZA
+
 const updatePizza = async (req, res) => {
 
     try {
@@ -47,7 +46,7 @@ const updatePizza = async (req, res) => {
     }
 };
 
-// DELETE PIZZA
+
 const deletePizza = async (req, res) => {
 
     try {
