@@ -3,24 +3,27 @@ import { createContext, useState } from "react";
 export const UserContext = createContext();
 
 function UserProvider({ children }) {
-
   const [user, setUser] = useState(() => {
-  return JSON.parse(localStorage.getItem("user")) || null;
+    return JSON.parse(localStorage.getItem("user")) || null;
   });
-  
-  const showToast = (message) => {
-  setToastMessage(message);
 
-  setTimeout(() => {
-    setToastMessage("");
-  }, 2000);
-};
+  const [toastMessage, setToastMessage] = useState("");
+
+  const showToast = (message) => {
+    setToastMessage(message);
+
+    setTimeout(() => {
+      setToastMessage("");
+    }, 2000);
+  };
+
   return (
     <UserContext.Provider
       value={{
         user,
         setUser,
-        showToast
+        showToast,
+        toastMessage
       }}
     >
       {children}
