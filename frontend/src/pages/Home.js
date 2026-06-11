@@ -16,7 +16,7 @@ import { motion } from "framer-motion";
 const items = [{ img: "c1.png", name: "Chicken Burst" }, { img: "c2.png", name: "Cheese Lava" }, { img: "c3.png", name: "Big Big Pizza" }, { img: "c4.png", name: "Sourdough Range" }, { img: "c5.png", name: "Rice Bowls" }, { img: "c6.png", name: "Veg Pizza" }, { img: "c7.png", name: "Non-Veg Pizza" }, { img: "c8.png", name: "Value Combos" }, { img: "c9.jpg", name: "Garlic Bread & Dips" }, { img: "c10.jpg", name: "Cheese Burst Pizza" }, { img: "c11.png", name: "Crazy Deals" }, { img: "c12.jpg", name: "Cheese Volcano" }, { img: "c13.png", name: "Desserts" }];
 
 function Home(){
-  const { address, saveAddress, customerName, saveCustomerName } = useContext(CartContext);
+  const { address, saveAddress, saveCustomerName } = useContext(CartContext);
   const [fullName, setFullName] = useState("");
   const [mobile, setMobile] = useState("");
   const [house, setHouse] = useState("");

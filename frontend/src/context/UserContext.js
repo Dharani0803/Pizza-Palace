@@ -7,7 +7,7 @@ function UserProvider({ children }) {
   const [user, setUser] = useState(() => {
   return JSON.parse(localStorage.getItem("user")) || null;
   });
-   const [toastMessage, setToastMessage] = useState("");
+  
   const showToast = (message) => {
   setToastMessage(message);
 

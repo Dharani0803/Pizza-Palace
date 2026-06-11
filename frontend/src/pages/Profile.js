@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useState } from "react";
-import { toast } from "react-toastify";
 
 function Profile() {
 
@@ -75,7 +74,7 @@ return (
 
         <div>
             <label className="text-sm font-semibold">Date of Birth</label>
-            <input type="date" value={user?.dob || ""} onChange={(e) => setDob(e.target.value)}
+            <input type="date" value={dob} onChange={(e) => setDob(e.target.value)}
             className="w-full border border-gray-300 rounded-xl px-4 py-3 mt-2 outline-none"/>
         </div>
 
