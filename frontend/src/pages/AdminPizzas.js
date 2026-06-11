@@ -94,7 +94,7 @@ function AdminPizzas() {
 
         </div>
 
-        <div className="flex items-center gap-3 mt-2">
+        <div className="flex items-center gap-3 mt-4">
   <input
     type="checkbox"
     checked={newPizza.hasSize}
@@ -105,7 +105,7 @@ function AdminPizzas() {
   <p>Has Size </p>
 </div>
 
-<div className="flex items-center gap-3 mt-2">
+<div className="flex items-center gap-3 mt-4">
   <input
     type="checkbox"
     checked={newPizza.hasCrust}
