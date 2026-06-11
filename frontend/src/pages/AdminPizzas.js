@@ -85,7 +85,7 @@ function AdminPizzas() {
           className="border rounded-lg px-4 py-3 w-full mt-4"
         ></textarea>
 
-        <div className="flex">
+        <div className="flex gap-5">
         <div className="flex items-center gap-3 mt-4">
           <input type="checkbox" checked={newPizza.isVeg}
             onChange={(e) => setNewPizza({ ...newPizza, isVeg: e.target.checked })}
