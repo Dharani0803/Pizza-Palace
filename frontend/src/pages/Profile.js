@@ -8,7 +8,7 @@ function Profile() {
     const navigate = useNavigate();
     const { user, setUser, showToast } = useContext(UserContext);
     const [name, setName] = useState(user?.name || "");
-const [email, setEmail] = useState(user?.email || "");
+const [email] = useState(user?.email || "");
 const [mobile, setMobile] = useState(user?.mobile || "");
 const [dob, setDob] = useState(user?.dob || "");
 const [gender, setGender] = useState(user?.gender || "");
