@@ -152,27 +152,27 @@ function Home(){
       <h1 className="text-xl font-bold">Offers for you</h1>
     <div className="flex flex-col md:flex-row mt-3 md:gap-10 gap-3">
       <div className="flex gap-10">
-        <div className="flex gap-50 items-center rounded-lg text-white p-3 bg-gradient-to-b from-[#0254B1] to-[#1879D2]">
+        <div className="flex justify-between items-center rounded-lg text-white p-3 bg-gradient-to-b from-[#0254B1] to-[#1879D2]">
         <div><div className="flex items-center gap-2">
           <i className="fa-solid fa-tags"></i>
           <p className="text-sm font-bold">Get ₹30 OFF</p></div>
           <p className="text-sm">Upto ₹30 Off on orders of ₹199 or more</p></div>
-          <button onClick={() => setAppliedOffer(appliedOffer === "GET30" ? "" : "GET30")}
+          <div><button onClick={() => setAppliedOffer(appliedOffer === "GET30" ? "" : "GET30")}
            className={`text-sm border px-2 py-1 rounded-md font-semibold
            ${appliedOffer === "GET30" ? "bg-white text-[#0254B1]" : "text-white"}`}>
-           {appliedOffer === "GET30" ? "Applied" : "Apply"}</button>
+           {appliedOffer === "GET30" ? "Applied" : "Apply"}</button></div>
         </div>
       </div>
 
       <div className="flex gap-10">
-      <div className="flex gap-50 items-center rounded-lg text-white p-3 bg-gradient-to-b from-orange-700 to-orange-500">
+      <div className="flex justify-between items-center rounded-lg text-white p-3 bg-gradient-to-b from-orange-700 to-orange-500">
         <div><div className="flex items-center gap-2"><i className="fa-solid fa-truck-fast"></i>
           <p className="text-sm font-bold">FREE Delivery</p></div>
           <p className="text-sm">No delivery fee on your order today</p></div>
-          <button onClick={() => setAppliedOffer(appliedOffer === "FREEDEL" ? "" : "FREEDEL")}
+          <div><button onClick={() => setAppliedOffer(appliedOffer === "FREEDEL" ? "" : "FREEDEL")}
            className={`text-sm border px-2 py-1 rounded-md font-semibold
            ${appliedOffer === "FREEDEL" ? "bg-white text-[#0254B1]" : "text-white"}`}>
-           {appliedOffer === "FREEDEL" ? "Applied" : "Apply"}</button></div>
+           {appliedOffer === "FREEDEL" ? "Applied" : "Apply"}</button></div></div>
       </div>
     </div>
     </div>
