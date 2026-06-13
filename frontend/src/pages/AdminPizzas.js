@@ -47,6 +47,58 @@ function AdminPizzas() {
     });
   };
 
+  const deletePizza = async (id) => {
+  try {
+    await fetch(
+      `https://pizza-palace-3.onrender.com/api/pizzas/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    setPizzas((prev) =>
+      prev.filter((pizza) => pizza._id !== id)
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const updatePizza = async (id) => {
+  try {
+    const response = await fetch(
+      `https://pizza-palace-3.onrender.com/api/pizzas/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newPizza),
+      }
+    );
+
+    const updatedPizza = await response.json();
+
+    setPizzas((prev) =>
+      prev.map((pizza) =>
+        pizza._id === id ? updatedPizza : pizza
+      )
+    );
+    setNewPizza({
+  name: "",
+  description: "",
+  price: "",
+  category: "",
+  imageUrl: "",
+  isVeg: true,
+  hasSize: true,
+  hasCrust: true
+});
+  } catch (err) {
+    console.log(err);
+  }
+};
+
   return (
     <div className="bg-[#F4F4F6] min-h-screen p-5">
 
@@ -116,9 +168,49 @@ function AdminPizzas() {
   <p>Has Crust </p>
 </div></div>
 
-        <button onClick={addPizza} className="bg-[#E31837] text-white px-5 py-3 rounded-xl font-semibold mt-5">
-          Add Pizza</button>
+        <button
+  onClick={() =>
+    newPizza._id
+      ? updatePizza(newPizza._id)
+      : addPizza()
+  }
+  className="bg-[#E31837] text-white px-5 py-3 rounded-xl font-semibold mt-5"
+>
+  {newPizza._id ? "Update Pizza" : "Add Pizza"}
+</button>
       </div>
+
+      <div className="space-y-4">
+  {pizzas.map((pizza) => (
+    <div
+      key={pizza._id}
+      className="bg-white p-4 rounded-xl shadow flex justify-between items-center"
+    >
+      <div>
+        <p className="font-bold">{pizza.name}</p>
+        <p>₹{pizza.price}</p>
+      </div>
+
+      <div className="flex gap-3">
+        <button
+          onClick={() => {
+            setNewPizza(pizza);
+          }}
+          className="bg-blue-500 text-white px-3 py-2 rounded" 
+        >
+          Edit
+        </button>
+
+        <button
+          onClick={() => deletePizza(pizza._id)}
+          className="bg-red-500 text-white px-3 py-2 rounded"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  ))}
+</div>
     </div>);
   }
 
