@@ -16,7 +16,7 @@ function Signup() {
         password
       );
       alert("Signup Successful");
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       alert(error.message);
     }
