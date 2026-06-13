@@ -28,7 +28,7 @@ function AdminOrders() {
 };
 
   return (
-    <div className="bg-[#F4F4F6] min-h-screen p-6">
+    <div className="bg-[#F4F4F6] min-h-screen p-5">
 
       <div className="mb-6">
       <div className="flex gap-3">
@@ -42,7 +42,8 @@ function AdminOrders() {
       </div>
 
       <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-      <table className="w-full">
+  <div className="overflow-x-auto">
+    <table className="w-full min-w-[800px]">
 
         <thead className="bg-white">
         <tr>
@@ -77,7 +78,7 @@ function AdminOrders() {
       </tbody>
 
     </table>
-    </div>
+    </div></div>
   </div> );
 }
 

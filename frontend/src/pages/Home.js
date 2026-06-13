@@ -152,27 +152,27 @@ function Home(){
       <h1 className="text-xl font-bold">Offers for you</h1>
     <div className="flex flex-col md:flex-row mt-3 md:gap-10 gap-3">
       <div className="flex gap-10">
-        <div className="flex justify-between items-center rounded-lg text-white p-3 bg-gradient-to-b from-[#0254B1] to-[#1879D2]">
+        <div className="flex gap-20 items-center rounded-lg text-white p-3 bg-gradient-to-b from-[#0254B1] to-[#1879D2]">
         <div><div className="flex items-center gap-2">
           <i className="fa-solid fa-tags"></i>
           <p className="text-sm font-bold">Get ₹30 OFF</p></div>
           <p className="text-sm">Upto ₹30 Off on orders of ₹199 or more</p></div>
-          <div><button onClick={() => setAppliedOffer(appliedOffer === "GET30" ? "" : "GET30")}
+          <button onClick={() => setAppliedOffer(appliedOffer === "GET30" ? "" : "GET30")}
            className={`text-sm border px-2 py-1 rounded-md font-semibold
            ${appliedOffer === "GET30" ? "bg-white text-[#0254B1]" : "text-white"}`}>
-           {appliedOffer === "GET30" ? "Applied" : "Apply"}</button></div>
+           {appliedOffer === "GET30" ? "Applied" : "Apply"}</button>
         </div>
       </div>
 
       <div className="flex gap-10">
-      <div className="flex justify-between items-center rounded-lg text-white p-3 bg-gradient-to-b from-orange-700 to-orange-500">
+      <div className="flex gap-20 items-center rounded-lg text-white p-3 bg-gradient-to-b from-orange-700 to-orange-500">
         <div><div className="flex items-center gap-2"><i className="fa-solid fa-truck-fast"></i>
           <p className="text-sm font-bold">FREE Delivery</p></div>
           <p className="text-sm">No delivery fee on your order today</p></div>
-          <div><button onClick={() => setAppliedOffer(appliedOffer === "FREEDEL" ? "" : "FREEDEL")}
+          <button onClick={() => setAppliedOffer(appliedOffer === "FREEDEL" ? "" : "FREEDEL")}
            className={`text-sm border px-2 py-1 rounded-md font-semibold
            ${appliedOffer === "FREEDEL" ? "bg-white text-[#0254B1]" : "text-white"}`}>
-           {appliedOffer === "FREEDEL" ? "Applied" : "Apply"}</button></div></div>
+           {appliedOffer === "FREEDEL" ? "Applied" : "Apply"}</button></div>
       </div>
     </div>
     </div>
@@ -194,8 +194,8 @@ function Home(){
 
   <div className="py-5 bg-gradient-to-t from-white via-orange-200 to-white">
     <div className="flex flex-col items-center">
-      <img className="w-44" src={Top} alt="BestSellers"></img>
-      <p className="text-[#B4831E] mt-1 font-semibold text-2xl">Top 10 BestSellers</p>
+      <img className="w-36 md:w-44" src={Top} alt="BestSellers"></img>
+      <p className="text-[#B4831E] mt-1 font-semibold md:text-2xl text-xl">Top 10 BestSellers</p>
     </div>
     <div className="flex mt-3 mb-7 py-1.5 justify-center items-center gap-2 bg-gradient-to-r from-transparent via-[#FFE6B7] to-transparent">
       <i class="fa-solid fa-location-dot text-[#7F5300]"></i>
@@ -208,7 +208,7 @@ function Home(){
 );
   return (
     <div key={index}
-     className="relative min-w-[340px] h-[350px] rounded-xl overflow-hidden flex-shrink-0">
+     className="relative md:min-w-[340px] min-w-[300px] md:h-[350px] h-[290px] rounded-xl overflow-hidden flex-shrink-0">
       <img onClick={() => navigate(`/pizza/${item._id}`, {state: { pizza: item, from: "home"}})}  src={item.imageUrl} alt="" className="w-full h-full object-cover"/>
 
     <div className="absolute bottom-0 text-white w-full">
@@ -272,8 +272,8 @@ function Home(){
   <hr className="h-2 bg-gray-100 border-none mt-5" />
 
   <div className="flex flex-col items-center">
-    <img className="w-44 mt-5" src={Cheese} alt="Cheese Volcano"></img>
-    <p className="text-[#DD773F] font-semibold text-2xl">Cheese Volcano</p>
+    <img className="w-36 md:w-44 mt-5" src={Cheese} alt="Cheese Volcano"></img>
+    <p className="text-[#DD773F] font-semibold md:text-2xl text-xl">Cheese Volcano</p>
   </div>
   <div className="my-3 py-1.5 text-center bg-gradient-to-r from-transparent via-[#FFE6B7] to-transparent">
     <p className="text-[#7F5300] text-sm">Molten Cheese Indulgence</p>
@@ -287,7 +287,7 @@ function Home(){
 );
 
   return (
-  <div key={index} className="relative min-w-[340px] h-[350px] rounded-xl overflow-hidden flex-shrink-0">
+  <div key={index} className="relative md:min-w-[340px] min-w-[300px] md:h-[350px] h-[290px] rounded-xl overflow-hidden flex-shrink-0">
     <img onClick={() => navigate(`/pizza/${item._id}`, {state: { pizza: item, from: "home"}})} src={item.imageUrl} alt="" className="w-full h-full object-cover"/>
 
   <div className="absolute bottom-0 text-white w-full">
@@ -342,10 +342,10 @@ function Home(){
     {/* Lunch Feast */}
     <div className="flex gap-3 pl-2 mt-5 items-center">
       <div>
-        <img className="w-16" src={Lunch} alt="Lunch Feast"></img>
+        <img className="md:w-16 w-10" src={Lunch} alt="Lunch Feast"></img>
       </div>
       <div>
-        <p className="font-semibold text-2xl">Lunch Feast @ ₹149</p>
+        <p className="font-semibold md:text-2xl text-xl">Lunch Feast @ ₹149</p>
         <p className="text-gray-600">5 Course Meal With Pizza, Side, Dessert & More!</p></div>
     </div>
 
@@ -357,7 +357,7 @@ function Home(){
 );
 
   return (
-    <div key={index} className="relative min-w-[340px] h-[350px] rounded-xl overflow-hidden flex-shrink-0">
+    <div key={index} className="relative md:min-w-[340px] min-w-[300px] md:h-[350px] h-[290px] rounded-xl overflow-hidden flex-shrink-0">
     <img onClick={() => navigate(`/pizza/${item._id}`, {state: { pizza: item, from: "home"}})} src={item.imageUrl} alt="Pizza" className="w-full h-full object-cover"/>
 
     <div className="absolute bottom-0 text-white w-full">

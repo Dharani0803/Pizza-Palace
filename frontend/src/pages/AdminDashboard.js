@@ -26,7 +26,7 @@ function AdminDashboard() {
   );
 
   return (
-    <div className="bg-[#F4F4F6] min-h-screen p-6">
+    <div className="bg-[#F4F4F6] min-h-screen p-5">
       <div className="flex justify-between items-center mb-6">
       <div className="flex gap-3">
 
