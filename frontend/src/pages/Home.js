@@ -152,7 +152,7 @@ function Home(){
       <h1 className="text-xl font-bold">Offers for you</h1>
     <div className="flex flex-col md:flex-row mt-3 md:gap-10 gap-3">
       <div className="flex gap-10">
-        <div className="flex justify-between items-center rounded-lg text-white p-3 bg-gradient-to-b from-[#0254B1] to-[#1879D2]">
+        <div className="flex gap-50 items-center rounded-lg text-white p-3 bg-gradient-to-b from-[#0254B1] to-[#1879D2]">
         <div><div className="flex items-center gap-2">
           <i className="fa-solid fa-tags"></i>
           <p className="text-sm font-bold">Get ₹30 OFF</p></div>
@@ -165,7 +165,7 @@ function Home(){
       </div>
 
       <div className="flex gap-10">
-      <div className="flex justify-between items-center rounded-lg text-white p-3 bg-gradient-to-b from-orange-700 to-orange-500">
+      <div className="flex gap-50 items-center rounded-lg text-white p-3 bg-gradient-to-b from-orange-700 to-orange-500">
         <div><div className="flex items-center gap-2"><i className="fa-solid fa-truck-fast"></i>
           <p className="text-sm font-bold">FREE Delivery</p></div>
           <p className="text-sm">No delivery fee on your order today</p></div>
